@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+
+# generated artifacts (evaluation results under artifacts/eval, artifacts/ablations and
+# artifacts/benchmarks are kept: they are the measured results)
+artifacts/cache/
+artifacts/cache_test/
+artifacts/index/
+artifacts/index_test/
+artifacts/mlruns/
+artifacts/repos/
+artifacts/demo_history_repo/
+artifacts/predictions/
+artifacts/ablations_smoke/
+artifacts/eval/logs/
+mlruns/
+
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo

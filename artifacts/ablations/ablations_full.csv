@@ -1,0 +1,9 @@
+experiment,name,ndcg_at_10,mrr_at_10,recall_at_100,p50_latency_ms,p95_latency_ms,indexing_s,model,enabled_components,status
+A,dense only,0.838,0.80757,0.98486,2.92,4.33,17.01,jina-code-0.5b,dense[jina-code-0.5b|raw],ok
+B,BM25 only,0.02198,0.01691,0.10996,1.54,1.98,20.04,,bm25;fusion=rrf,ok
+C,dense + BM25 (score fusion),0.57944,0.46367,0.97928,3.86,5.96,16.63,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25;fusion=score,ok
+D,dense + BM25 + RRF,0.4542,0.32089,0.97663,3.79,5.88,16.6,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25;fusion=rrf,ok
+D2,dense + BM25 + RRF (dense-weighted),0.76062,0.70426,0.98486,3.77,5.95,17.08,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25;fusion=rrf,ok
+E,+ identifier preprocessing,0.45376,0.32377,0.97689,3.85,6.0,18.81,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25+idsplit;fusion=rrf,ok
+F,+ structural representation,0.45666,0.32667,0.97716,4.56,7.46,19.73,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25+idsplit;fusion=rrf,ok
+G,+ symbol retrieval,0.17455,0.12428,0.96999,5.95,16.16,19.19,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25+idsplit;symbols;fusion=rrf,ok

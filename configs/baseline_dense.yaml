@@ -1,0 +1,36 @@
+# A. Dense-only baseline: code embedding model + FAISS IndexFlatIP (cosine).
+name: baseline_dense
+description: Dense retrieval only (jina-code-embeddings-0.5b, nl2code prompts).
+seed: 42
+index_dir: artifacts/index
+cache_dir: artifacts/cache
+
+dense:
+  enabled: true
+  model: jina-code-0.5b          # see MODEL_REGISTRY: qodo-1.5b | jina-code-1.5b | jina-code-0.5b | jina-v2-base-code
+  device: cpu
+  batch_size: 16
+  max_seq_length: 1024
+  top_k: 100
+  normalize: true
+  index_type: flat               # flat (IndexFlatIP) | hnsw | ivf
+  document_view: raw
+  torch_threads: 4               # physical cores; hyper-threads slowed encoding ~2.8x in our probe
+  dtype: float32
+  quantize_int8: false           # measured harmful for Qwen-based embedders (cos 0.49 vs fp32)
+
+bm25: {enabled: false}
+symbols: {enabled: false}
+graph: {enabled: false}
+structural: {enabled: false}
+reranker: {enabled: false}
+diversity: {enabled: false}
+fusion:
+  method: dense_only
+  query_adaptive: false
+query:
+  classifier: rules
+  expansion: false
+  strip_examples: false
+versions: {enabled: false}
+tracking: {mlflow: false}

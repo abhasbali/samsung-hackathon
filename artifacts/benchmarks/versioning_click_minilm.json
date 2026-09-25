@@ -1,0 +1,124 @@
+{
+  "repository": "click",
+  "config": "full",
+  "model": "minilm",
+  "commits": 6,
+  "initial_index": {
+    "commit": "2c8cd3ac95",
+    "seconds": {
+      "parse": 1.2825,
+      "embed_and_index": 3.6159,
+      "lineage": 0.0035,
+      "bm25_rebuild": 1.0691,
+      "total": 5.9718
+    },
+    "snippets": 1471,
+    "embeddings": 1452
+  },
+  "steps": [
+    {
+      "commit": "68e7ea7228",
+      "message": "Release version 8.5.0 (#3787)",
+      "files_total": 79,
+      "files_changed": 0,
+      "files_added": 0,
+      "files_deleted": 0,
+      "snippets_live": 1471,
+      "incremental_s": 0.017,
+      "full_rebuild_s": 6.846,
+      "speedup": 412.58,
+      "incremental_embeddings_computed": 0,
+      "incremental_snippets_reused": 0,
+      "full_embeddings_computed": 1452,
+      "lineage_edges": 0,
+      "lineage_relations": {}
+    },
+    {
+      "commit": "36baa15ff8",
+      "message": "Start 8.5.1. (#3801)",
+      "files_total": 79,
+      "files_changed": 0,
+      "files_added": 0,
+      "files_deleted": 0,
+      "snippets_live": 1471,
+      "incremental_s": 0.012,
+      "full_rebuild_s": 5.604,
+      "speedup": 483.23,
+      "incremental_embeddings_computed": 0,
+      "incremental_snippets_reused": 0,
+      "full_embeddings_computed": 1452,
+      "lineage_edges": 0,
+      "lineage_relations": {}
+    },
+    {
+      "commit": "6aabf099bf",
+      "message": "Stable (#3851)",
+      "files_total": 90,
+      "files_changed": 8,
+      "files_added": 12,
+      "files_deleted": 1,
+      "snippets_live": 1512,
+      "incremental_s": 0.926,
+      "full_rebuild_s": 6.466,
+      "speedup": 6.98,
+      "incremental_embeddings_computed": 66,
+      "incremental_snippets_reused": 386,
+      "full_embeddings_computed": 1486,
+      "lineage_edges": 28,
+      "lineage_relations": {
+        "modified": 10,
+        "moved": 14,
+        "evolved": 3,
+        "renamed": 1
+      }
+    },
+    {
+      "commit": "3cbaa76b60",
+      "message": "Merge stable into main (#3876)",
+      "files_total": 91,
+      "files_changed": 7,
+      "files_added": 1,
+      "files_deleted": 0,
+      "snippets_live": 1520,
+      "incremental_s": 1.014,
+      "full_rebuild_s": 5.397,
+      "speedup": 5.32,
+      "incremental_embeddings_computed": 28,
+      "incremental_snippets_reused": 339,
+      "full_embeddings_computed": 1494,
+      "lineage_edges": 19,
+      "lineage_relations": {
+        "modified": 18,
+        "renamed": 1
+      }
+    },
+    {
+      "commit": "06b2a67874",
+      "message": "Deprecate parameter names that are: not a Python identifier, or a Python Keyword",
+      "files_total": 91,
+      "files_changed": 4,
+      "files_added": 0,
+      "files_deleted": 0,
+      "snippets_live": 1562,
+      "incremental_s": 0.806,
+      "full_rebuild_s": 7.058,
+      "speedup": 8.76,
+      "incremental_embeddings_computed": 52,
+      "incremental_snippets_reused": 317,
+      "full_embeddings_computed": 1536,
+      "lineage_edges": 9,
+      "lineage_relations": {
+        "modified": 9
+      }
+    }
+  ],
+  "totals": {
+    "incremental_s": 2.775,
+    "full_rebuild_s": 31.371,
+    "speedup": 11.3,
+    "embeddings_incremental": 146,
+    "embeddings_full": 7420
+  },
+  "store_snippet_versions": 1622,
+  "generated_at": "2026-09-25 05:16:23"
+}

@@ -1,0 +1,142 @@
+{
+  "task": "AppsRetrieval",
+  "dataset": "subset_q300_c3000",
+  "base_config": "configs/full.yaml",
+  "generated_at": "2026-09-25 05:05:17",
+  "rows": [
+    {
+      "experiment": "A",
+      "name": "dense only",
+      "description": "code embedding + FAISS IndexFlatIP",
+      "model": "jina-code-0.5b",
+      "enabled_components": [
+        "dense[jina-code-0.5b|raw]"
+      ],
+      "dataset": "subset_q300_c3000",
+      "n_queries": 300,
+      "n_corpus": 3000,
+      "ndcg_at_10": 0.89822,
+      "mrr_at_10": 0.87365,
+      "p50_latency_ms": 2.62,
+      "p95_latency_ms": 3.86,
+      "indexing_s": 6.89,
+      "status": "ok",
+      "recall_at_100": 1.0,
+      "index_stage_s": {
+        "parse": 5.87,
+        "dense": 0.07,
+        "bm25": 0.0,
+        "symbol": 0.0,
+        "graph": 0.0
+      },
+      "embeddings_computed": 0,
+      "embedding_compute_s": 0.0,
+      "eval_s": 1.9,
+      "peak_memory_mb": 3947.7
+    },
+    {
+      "experiment": "D",
+      "name": "dense + BM25 + RRF",
+      "description": "reciprocal rank fusion, k=60, equal weights",
+      "model": "jina-code-0.5b",
+      "enabled_components": [
+        "dense[jina-code-0.5b|raw]",
+        "bm25",
+        "fusion=rrf"
+      ],
+      "dataset": "subset_q300_c3000",
+      "n_queries": 300,
+      "n_corpus": 3000,
+      "ndcg_at_10": 0.42364,
+      "mrr_at_10": 0.28708,
+      "p50_latency_ms": 2.58,
+      "p95_latency_ms": 3.38,
+      "indexing_s": 7.85,
+      "status": "ok",
+      "recall_at_100": 0.99667,
+      "index_stage_s": {
+        "parse": 5.87,
+        "dense": 0.05,
+        "bm25": 0.26,
+        "symbol": 0.0,
+        "graph": 0.0
+      },
+      "embeddings_computed": 0,
+      "embedding_compute_s": 0.0,
+      "eval_s": 1.5,
+      "peak_memory_mb": 3947.7
+    },
+    {
+      "experiment": "G",
+      "name": "+ symbol retrieval",
+      "description": "normalised inverted symbol index",
+      "model": "jina-code-0.5b",
+      "enabled_components": [
+        "dense[jina-code-0.5b|raw]",
+        "bm25+idsplit",
+        "symbols",
+        "fusion=rrf"
+      ],
+      "dataset": "subset_q300_c3000",
+      "n_queries": 300,
+      "n_corpus": 3000,
+      "ndcg_at_10": 0.16151,
+      "mrr_at_10": 0.13952,
+      "p50_latency_ms": 3.79,
+      "p95_latency_ms": 6.32,
+      "indexing_s": 7.98,
+      "status": "ok",
+      "recall_at_100": 0.99333,
+      "index_stage_s": {
+        "parse": 5.87,
+        "dense": 0.04,
+        "bm25": 1.36,
+        "symbol": 0.21,
+        "graph": 0.0
+      },
+      "embeddings_computed": 0,
+      "embedding_compute_s": 0.0,
+      "eval_s": 2.1,
+      "peak_memory_mb": 3947.7
+    },
+    {
+      "experiment": "H",
+      "name": "+ reranker",
+      "description": "cross-encoder over the fused top-N",
+      "model": "jina-code-0.5b",
+      "enabled_components": [
+        "dense[jina-code-0.5b|raw]",
+        "bm25+idsplit",
+        "symbols",
+        "fusion=rrf",
+        "reranker[Alibaba-NLP/gte-reranker-modernbert-base]"
+      ],
+      "dataset": "subset_q300_c3000",
+      "n_queries": 300,
+      "n_corpus": 3000,
+      "ndcg_at_10": 0.32875,
+      "mrr_at_10": 0.24631,
+      "p50_latency_ms": 2502.27,
+      "p95_latency_ms": 2970.82,
+      "indexing_s": 15.47,
+      "status": "ok",
+      "recall_at_100": 0.99333,
+      "index_stage_s": {
+        "parse": 5.87,
+        "dense": 0.05,
+        "bm25": 0.92,
+        "symbol": 0.2,
+        "graph": 0.0
+      },
+      "embeddings_computed": 0,
+      "embedding_compute_s": 0.0,
+      "eval_s": 759.0,
+      "peak_memory_mb": 3947.7
+    }
+  ],
+  "official_reference": {
+    "file": "artifacts/eval/appsretrieval_results.json",
+    "ndcg_at_10": 0.83787,
+    "mrr_at_10": 0.807387
+  }
+}

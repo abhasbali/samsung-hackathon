@@ -1,0 +1,12 @@
+# Experimental: 2-hop graph expansion; Joern CPG and late interaction are enabled via the
+# scripts in docs/evaluation.md (they are optional and never required by the core system).
+extends: full.yaml
+name: experimental_cpg
+description: Deeper graph expansion + MMR; companion config for the optional Joern/late-interaction experiments.
+
+graph:
+  depth: 2
+  seeds: 15
+diversity:
+  mmr: true
+  mmr_lambda: 0.75

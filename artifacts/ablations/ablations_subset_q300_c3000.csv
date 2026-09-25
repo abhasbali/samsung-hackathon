@@ -1,0 +1,5 @@
+experiment,name,ndcg_at_10,mrr_at_10,recall_at_100,p50_latency_ms,p95_latency_ms,indexing_s,model,enabled_components,status
+A,dense only,0.89822,0.87365,1.0,2.62,3.86,6.89,jina-code-0.5b,dense[jina-code-0.5b|raw],ok
+D,dense + BM25 + RRF,0.42364,0.28708,0.99667,2.58,3.38,7.85,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25;fusion=rrf,ok
+G,+ symbol retrieval,0.16151,0.13952,0.99333,3.79,6.32,7.98,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25+idsplit;symbols;fusion=rrf,ok
+H,+ reranker,0.32875,0.24631,0.99333,2502.27,2970.82,15.47,jina-code-0.5b,dense[jina-code-0.5b|raw];bm25+idsplit;symbols;fusion=rrf;reranker[Alibaba-NLP/gte-reranker-modernbert-base],ok

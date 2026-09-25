@@ -1,0 +1,69 @@
+{
+  "repository": "demo_history_repo",
+  "config": "test_tiny",
+  "model": "hashing",
+  "commits": 3,
+  "initial_index": {
+    "commit": "3ce2cb2320",
+    "seconds": {
+      "parse": 0.2154,
+      "embed_and_index": 0.0195,
+      "lineage": 0.0002,
+      "bm25_rebuild": 0.0327,
+      "total": 0.268
+    },
+    "snippets": 15,
+    "embeddings": 15
+  },
+  "steps": [
+    {
+      "commit": "38945a955e",
+      "message": "v2: hashed passwords, retries, rename text_utils -> preprocessing",
+      "files_total": 7,
+      "files_changed": 4,
+      "files_added": 2,
+      "files_deleted": 1,
+      "snippets_live": 28,
+      "incremental_s": 0.488,
+      "full_rebuild_s": 0.646,
+      "speedup": 1.32,
+      "incremental_embeddings_computed": 23,
+      "incremental_snippets_reused": 2,
+      "full_embeddings_computed": 28,
+      "lineage_edges": 4,
+      "lineage_relations": {
+        "modified": 2,
+        "file_renamed": 2
+      }
+    },
+    {
+      "commit": "000d70b375",
+      "message": "v3: authenticate -> validate_user, MAX_RETRIES 3 -> 5, token sessions",
+      "files_total": 7,
+      "files_changed": 6,
+      "files_added": 0,
+      "files_deleted": 0,
+      "snippets_live": 34,
+      "incremental_s": 0.41,
+      "full_rebuild_s": 0.591,
+      "speedup": 1.44,
+      "incremental_embeddings_computed": 15,
+      "incremental_snippets_reused": 16,
+      "full_embeddings_computed": 34,
+      "lineage_edges": 8,
+      "lineage_relations": {
+        "modified": 7,
+        "renamed": 1
+      }
+    }
+  ],
+  "totals": {
+    "incremental_s": 0.898,
+    "full_rebuild_s": 1.237,
+    "speedup": 1.38,
+    "embeddings_incremental": 38,
+    "embeddings_full": 62
+  },
+  "store_snippet_versions": 53,
+  "generated_at": "2026-09-24 23:06:29"
+}

@@ -1,0 +1,10 @@
+[
+  {"query": "Where is authentication implemented?", "note": "IMPLEMENTATION: auth.py dominates; concept expansion adds auth vocabulary"},
+  {"query": "Who calls validate_user?", "note": "CALLER: symbol call-sites + call graph rank the caller above the definition"},
+  {"query": "What functions are called before the user is saved?", "note": "DATA_FLOW: graph expansion around save_user"},
+  {"query": "Where is MAX_RETRIES configured?", "note": "CONFIGURATION: exact symbol definition wins"},
+  {"query": "How is input normalized before prediction?", "note": "DATA_FLOW: preprocessing -> model call chain"},
+  {"query": "What functions does preprocess_input call?", "note": "CALLEE: callees of the queried symbol"},
+  {"query": "Which errors are raised when the database connection fails?", "note": "ERROR"},
+  {"query": "How did authentication change between versions?", "note": "EVOLUTION: needs the demo history index (all versions + lineage)", "version": "all"}
+]

@@ -1,0 +1,33 @@
+# Full CodeFusion system for repository search (demo / P1 / bonus): every component on.
+# The P0 benchmark configuration is configs/p0_apps.yaml, chosen from ablation results.
+extends: hybrid.yaml
+name: full
+description: All components - hybrid retrieval, graph, structural scoring, adaptive fusion, diversity, versions.
+
+graph:
+  enabled: true
+  backend: rustworkx
+  depth: 1
+  seeds: 10
+  top_k: 50
+structural:
+  enabled: true
+fusion:
+  method: rrf
+  rrf_k: 60
+  query_adaptive: true
+reranker:
+  enabled: false                 # enable + set model to try a cross-encoder (see docs/retrieval.md)
+  model: Alibaba-NLP/gte-reranker-modernbert-base
+  candidates: 30
+diversity:
+  enabled: true
+  dedup_content: true
+  dedup_ast: true
+  collapse_lineage: true
+  mmr: false
+query:
+  expansion: true
+versions:
+  enabled: true
+  default_scope: latest

@@ -1,0 +1,9 @@
+# Fast CPU configuration: small code embedder, short sequences, hybrid lexical signals.
+extends: full.yaml
+name: cpu_fast
+description: jina-embeddings-v2-base-code (161M) with 512-token inputs + BM25/symbols/graph.
+
+dense:
+  model: jina-v2-base-code
+  max_seq_length: 512
+  batch_size: 32

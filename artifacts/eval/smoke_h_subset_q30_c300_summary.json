@@ -1,0 +1,299 @@
+{
+  "task": "AppsRetrieval",
+  "mode": "hybrid",
+  "config": "test_tiny",
+  "model": "hashing",
+  "subset": true,
+  "n_queries": 30,
+  "n_corpus": 300,
+  "official_json": "artifacts\\eval\\smoke_h_subset_q30_c300.json",
+  "ndcg_at_10": 0.02547,
+  "mrr_at_10": 0.013095,
+  "scores": {
+    "main_score": 0.02547,
+    "ndcg_at_1": 0.0,
+    "ndcg_at_5": 0.01436,
+    "ndcg_at_10": 0.02547,
+    "ndcg_at_100": 0.12087,
+    "mrr_at_1": 0.0,
+    "mrr_at_5": 0.008333,
+    "mrr_at_10": 0.013095,
+    "mrr_at_100": 0.030844,
+    "recall_at_10": 0.06667,
+    "recall_at_100": 0.53333,
+    "map_at_10": 0.0131
+  },
+  "model_load_s": 1.09,
+  "evaluation_s": 13.58,
+  "total_s": 26.38,
+  "peak_memory_mb": 577.5,
+  "enabled_components": [
+    "dense[hashing|raw]",
+    "bm25+idsplit",
+    "symbols",
+    "graph(d=1)",
+    "fusion=rrf+adaptive",
+    "structural",
+    "diversity",
+    "query_expansion"
+  ],
+  "embedding_stats": {
+    "computed": 330,
+    "reused": 0,
+    "seconds": 0.111775100000159
+  },
+  "encode_seconds": {
+    "query": 0.0,
+    "document": 0.0
+  },
+  "hybrid_timing_s": {
+    "parse_s": 0.741,
+    "index_s": 1.553,
+    "index_parse_s": 0.0,
+    "index_dense_s": 0.1,
+    "index_bm25_s": 0.154,
+    "index_symbol_s": 0.032,
+    "index_graph_s": 0.024,
+    "query_encode_s": 0.121,
+    "search_s": 3.437
+  },
+  "query_latency_ms": {
+    "p50": 108.83819999980915,
+    "p95": 144.55180499967355,
+    "mean": 110.4514300000119
+  },
+  "config_dump": {
+    "name": "test_tiny",
+    "description": "Hashing embeddings for tests and CI; exercises every pipeline stage without downloads.",
+    "seed": 42,
+    "index_dir": "artifacts/index_test",
+    "cache_dir": "artifacts/cache_test",
+    "chunking": {
+      "max_chunk_lines": 150,
+      "max_module_block_lines": 80,
+      "class_skeletons": true,
+      "include_module_blocks": true,
+      "prefer_tree_sitter": true,
+      "include_extensions": [
+        ".py",
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".java",
+        ".go"
+      ],
+      "exclude_dirs": [
+        ".git",
+        "node_modules",
+        ".venv",
+        "venv",
+        "__pycache__",
+        "dist",
+        "build",
+        ".mypy_cache"
+      ],
+      "max_file_bytes": 1000000
+    },
+    "dense": {
+      "enabled": true,
+      "model": "hashing",
+      "provider": "hashing",
+      "device": "cpu",
+      "batch_size": 16,
+      "max_seq_length": 1024,
+      "top_k": 100,
+      "normalize": true,
+      "index_type": "flat",
+      "hnsw_m": 32,
+      "ivf_nlist": 256,
+      "ivf_nprobe": 16,
+      "document_view": "raw",
+      "query_prompt": null,
+      "document_prompt": null,
+      "torch_threads": null,
+      "quantize_int8": false,
+      "dtype": "float32",
+      "cache_embeddings": false,
+      "sort_by_length": true,
+      "hashing_dim": 256
+    },
+    "bm25": {
+      "enabled": true,
+      "top_k": 100,
+      "k1": 1.2,
+      "b": 0.75,
+      "method": "lucene",
+      "identifier_splitting": true,
+      "stemming": true,
+      "remove_stopwords": true,
+      "fields": {
+        "raw": 1.0,
+        "identifiers": 0.0,
+        "structural": 0.3,
+        "context": 0.3,
+        "docstring": 0.5
+      }
+    },
+    "symbols": {
+      "enabled": true,
+      "top_k": 50,
+      "role_weights": {
+        "def": 3.0,
+        "call": 1.5,
+        "import": 1.2,
+        "attr": 1.0,
+        "ref": 0.5,
+        "param": 0.3
+      },
+      "min_query_symbol_len": 3,
+      "scip_index": null
+    },
+    "graph": {
+      "enabled": true,
+      "backend": "rustworkx",
+      "depth": 1,
+      "seeds": 10,
+      "top_k": 50,
+      "decay": 0.5,
+      "edge_weights": {
+        "CALLS": 1.0,
+        "REFERENCES": 0.6,
+        "EXTENDS": 0.8,
+        "OVERRIDES": 0.8,
+        "CONTAINS": 0.4,
+        "IMPORTS": 0.3
+      }
+    },
+    "fusion": {
+      "method": "rrf",
+      "rrf_k": 60,
+      "query_adaptive": true,
+      "weights": {
+        "dense": 1.0,
+        "bm25": 1.0,
+        "symbol": 1.0,
+        "graph": 0.5
+      },
+      "intent_weights": {
+        "DEFINITION": {
+          "dense": 0.6,
+          "bm25": 1.3,
+          "symbol": 2.0,
+          "graph": 0.3
+        },
+        "IMPLEMENTATION": {
+          "dense": 1.2,
+          "bm25": 1.0,
+          "symbol": 1.0,
+          "graph": 0.6
+        },
+        "USAGE": {
+          "dense": 0.8,
+          "bm25": 1.1,
+          "symbol": 1.6,
+          "graph": 1.2
+        },
+        "CALLER": {
+          "dense": 0.6,
+          "bm25": 0.8,
+          "symbol": 1.5,
+          "graph": 2.0
+        },
+        "CALLEE": {
+          "dense": 0.6,
+          "bm25": 0.8,
+          "symbol": 1.5,
+          "graph": 2.0
+        },
+        "DATA_FLOW": {
+          "dense": 1.3,
+          "bm25": 0.7,
+          "symbol": 1.0,
+          "graph": 1.6
+        },
+        "DEPENDENCY": {
+          "dense": 0.8,
+          "bm25": 1.2,
+          "symbol": 1.6,
+          "graph": 1.0
+        },
+        "ERROR": {
+          "dense": 1.0,
+          "bm25": 1.3,
+          "symbol": 1.2,
+          "graph": 0.6
+        },
+        "CONFIGURATION": {
+          "dense": 0.8,
+          "bm25": 1.3,
+          "symbol": 1.6,
+          "graph": 0.5
+        },
+        "EVOLUTION": {
+          "dense": 1.0,
+          "bm25": 1.0,
+          "symbol": 1.2,
+          "graph": 0.8
+        },
+        "GENERAL": {
+          "dense": 1.0,
+          "bm25": 1.0,
+          "symbol": 1.0,
+          "graph": 1.0
+        }
+      },
+      "candidate_pool": 200
+    },
+    "reranker": {
+      "enabled": false,
+      "type": "cross-encoder",
+      "model": "jinaai/jina-reranker-v2-base-multilingual",
+      "candidates": 30,
+      "batch_size": 16,
+      "max_length": 1024,
+      "device": "cpu",
+      "trust_remote_code": true,
+      "mode": "interpolate",
+      "alpha": 0.3
+    },
+    "structural": {
+      "enabled": true,
+      "defines_symbol": 0.6,
+      "calls_symbol": 0.3,
+      "references_symbol": 0.1,
+      "caller_of_top": 0.15,
+      "callee_of_top": 0.15,
+      "import_match": 0.2,
+      "call_path": 0.25,
+      "top_n_for_neighbours": 3
+    },
+    "diversity": {
+      "enabled": true,
+      "dedup_content": true,
+      "dedup_ast": true,
+      "near_duplicate_threshold": 0.92,
+      "collapse_lineage": true,
+      "mmr": false,
+      "mmr_lambda": 0.75
+    },
+    "query": {
+      "classifier": "rules",
+      "expansion": true,
+      "expansion_max_terms": 8,
+      "strip_examples": false,
+      "max_query_chars": 8000
+    },
+    "versions": {
+      "enabled": true,
+      "default_scope": "latest",
+      "lineage_similarity": 0.6,
+      "history_penalty": 0.15
+    },
+    "tracking": {
+      "mlflow": false,
+      "experiment": "codefusion",
+      "tracking_uri": null
+    }
+  }
+}

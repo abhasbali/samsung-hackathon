@@ -1,0 +1,19 @@
+# Dense + code-aware BM25 + symbol index, fused with weighted RRF.
+extends: baseline_dense.yaml
+name: hybrid
+description: Dense + identifier-aware multi-field BM25 + symbol retrieval with RRF.
+
+bm25:
+  enabled: true
+  top_k: 100
+  identifier_splitting: true
+  stemming: true
+  fields: {raw: 1.0, identifiers: 0.0, structural: 0.3, context: 0.3, docstring: 0.5}
+symbols:
+  enabled: true
+  top_k: 50
+fusion:
+  method: rrf
+  rrf_k: 60
+  query_adaptive: false
+  weights: {dense: 1.0, bm25: 1.0, symbol: 1.0, graph: 1.0}

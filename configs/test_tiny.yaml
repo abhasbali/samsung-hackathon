@@ -1,0 +1,13 @@
+# CI / unit-test configuration: no model download (deterministic hashing embeddings).
+extends: full.yaml
+name: test_tiny
+description: Hashing embeddings for tests and CI; exercises every pipeline stage without downloads.
+index_dir: artifacts/index_test
+cache_dir: artifacts/cache_test
+
+dense:
+  model: hashing
+  provider: hashing
+  hashing_dim: 256
+  cache_embeddings: false
+  torch_threads: null

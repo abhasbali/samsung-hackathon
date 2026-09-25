@@ -1,0 +1,2845 @@
+[
+  {
+    "query": {
+      "query": "Where is authentication implemented?",
+      "note": "IMPLEMENTATION: auth.py dominates; concept expansion adds auth vocabulary"
+    },
+    "index": "current",
+    "response": {
+      "query": "Where is authentication implemented?",
+      "intent": "IMPLEMENTATION",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.801,
+        "dense": 204.135,
+        "bm25": 1.44,
+        "symbol": 0.093,
+        "graph": 0.916,
+        "fusion": 0.194,
+        "structural": 0.89,
+        "diversity": 0.311,
+        "total": 209.046
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 25,
+        "symbol": 0,
+        "graph": 17,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.04513,
+          "snippet": {
+            "snippet_id": "d2a839dfaf2fa9db",
+            "file": "main.py",
+            "lines": [
+              24,
+              29
+            ],
+            "symbol": "main",
+            "name": "main",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lb32b293d7aa2",
+            "signature": "def main():",
+            "content": "def main():\n    settings = load_config()\n    repository = UserRepository(connect(settings[\"database_url\"]))\n    service = AuthService(repository)\n    token = service.validate_user(\"alice\", \"wonderland\")\n    print(handle_request(service, token, {\"Age\": \" 42 \", \"income\": 50000}))"
+          },
+          "provenance": {
+            "dense_rank": 4,
+            "bm25_rank": 11,
+            "graph_rank": 1,
+            "dense_score": 0.484804,
+            "bm25_score": 2.117067,
+            "graph_score": 0.722222,
+            "rrf_score": 0.042671,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.01875,
+              "bm25": 0.014085,
+              "graph": 0.009836
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 1,
+            "final_score": 0.04513
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of validate_user",
+            "caller of AuthService",
+            "caller of handle_request"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.044979,
+          "snippet": {
+            "snippet_id": "1797718fdb706d78",
+            "file": "auth.py",
+            "lines": [
+              42,
+              49
+            ],
+            "symbol": "AuthService.validate_user",
+            "name": "validate_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L5ad77a83e373",
+            "signature": "def validate_user(self, username, password):",
+            "content": "def validate_user(self, username, password):\n        \"\"\"Authenticate a user by username and password and return a session token.\"\"\"\n        user = self.repository.find_user(username)\n        if user is None:\n            raise AuthenticationError(\"unknown user\")\n        if not hmac.compare_digest(hash_password(password, user[\"salt\"]), user[\"password_hash\"]):\n            raise AuthenticationError(\"wrong password\")\n        return issue_token(username)"
+          },
+          "provenance": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "graph_rank": 5,
+            "dense_score": 0.509733,
+            "bm25_score": 9.824028,
+            "graph_score": 0.538095,
+            "rrf_score": 0.044979,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.019355,
+              "bm25": 0.016393,
+              "graph": 0.009231
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 2,
+            "final_score": 0.044979
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "caller of AuthenticationError",
+            "member/owner of AuthService",
+            "callee of main",
+            "caller of issue_token"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.044734,
+          "snippet": {
+            "snippet_id": "8902eaa3605cc6a2",
+            "file": "auth.py",
+            "lines": [
+              36,
+              54
+            ],
+            "symbol": "AuthService",
+            "name": "AuthService",
+            "type": "class",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L7ce79bce2804",
+            "signature": "class AuthService:",
+            "content": "class AuthService:\n    \"\"\"Authenticates users against the user repository.\"\"\"\n\n    def __init__(self, repository): ...\n\n    def validate_user(self, username, password): ...\n\n    def current_user(self, token): ..."
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 5,
+            "graph_rank": 2,
+            "dense_score": 0.61967,
+            "bm25_score": 4.835502,
+            "graph_score": 0.633929,
+            "rrf_score": 0.044734,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.019672,
+              "bm25": 0.015385,
+              "graph": 0.009677
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 3,
+            "final_score": 0.044734
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "member/owner of validate_user",
+            "callee of main",
+            "member/owner of current_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.0447,
+          "snippet": {
+            "snippet_id": "a6580d996c51f228",
+            "file": "errors.py",
+            "lines": [
+              12,
+              13
+            ],
+            "symbol": "AuthenticationError",
+            "name": "AuthenticationError",
+            "type": "class",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L69aac741c8d1",
+            "signature": "class AuthenticationError(AppError):",
+            "content": "class AuthenticationError(AppError):\n    \"\"\"Raised when credentials or tokens are invalid.\"\"\""
+          },
+          "provenance": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "graph_rank": 3,
+            "dense_score": 0.504394,
+            "bm25_score": 9.536595,
+            "graph_score": 0.6,
+            "rrf_score": 0.0447,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.019048,
+              "bm25": 0.016129,
+              "graph": 0.009524
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 4,
+            "final_score": 0.0447
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "callee of validate_user",
+            "callee of verify_token"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.044427,
+          "snippet": {
+            "snippet_id": "f273ac17dc5df949",
+            "file": "auth.py",
+            "lines": [
+              24,
+              33
+            ],
+            "symbol": "verify_token",
+            "name": "verify_token",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L9f5f2fb117db",
+            "signature": "def verify_token(token):",
+            "content": "def verify_token(token):\n    \"\"\"Check a token's signature and expiry; return the username if valid.\"\"\"\n    username, expiry, signature = token.rsplit(\":\", 2)\n    payload = f\"{username}:{expiry}\"\n    expected = hmac.new(SECRET_KEY.encode(), payload.encode(), hashlib.sha256).hexdigest()\n    if not hmac.compare_digest(expected, signature):\n        raise AuthenticationError(\"bad token signature\")\n    if int(expiry) < time.time():\n        raise AuthenticationError(\"token expired\")\n    return username"
+          },
+          "provenance": {
+            "dense_rank": 8,
+            "bm25_rank": 4,
+            "graph_rank": 9,
+            "dense_score": 0.376248,
+            "bm25_score": 5.422111,
+            "graph_score": 0.3125,
+            "rrf_score": 0.041968,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.017647,
+              "bm25": 0.015625,
+              "graph": 0.008696
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 5,
+            "final_score": 0.044427
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of AuthenticationError",
+            "callee of current_user"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 1.2,
+        "bm25": 1.0,
+        "symbol": 1.0,
+        "graph": 0.6
+      },
+      "query_analysis": {
+        "intent": "IMPLEMENTATION",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "IMPLEMENTATION:implemented",
+          "IMPLEMENTATION:Where is authentication implemented"
+        ],
+        "identifiers": [],
+        "target_symbols": [
+          "authentication"
+        ],
+        "expansion_terms": [
+          "auth",
+          "authenticate",
+          "login",
+          "token",
+          "jwt",
+          "password",
+          "credential",
+          "session",
+          "AuthenticationError"
+        ],
+        "bm25_tokens": [
+          "authent",
+          "implement",
+          "auth",
+          "login",
+          "token",
+          "jwt",
+          "password",
+          "credenti",
+          "session",
+          "authenticationerror",
+          "error"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "Who calls validate_user?",
+      "note": "CALLER: symbol call-sites + call graph rank the caller above the definition"
+    },
+    "index": "current",
+    "response": {
+      "query": "Who calls validate_user?",
+      "intent": "CALLER",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.436,
+        "dense": 36.174,
+        "bm25": 0.359,
+        "symbol": 0.19,
+        "graph": 0.66,
+        "fusion": 0.121,
+        "structural": 0.791,
+        "diversity": 0.341,
+        "total": 39.297
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 28,
+        "symbol": 5,
+        "graph": 20,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.103366,
+          "snippet": {
+            "snippet_id": "d2a839dfaf2fa9db",
+            "file": "main.py",
+            "lines": [
+              24,
+              29
+            ],
+            "symbol": "main",
+            "name": "main",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lb32b293d7aa2",
+            "signature": "def main():",
+            "content": "def main():\n    settings = load_config()\n    repository = UserRepository(connect(settings[\"database_url\"]))\n    service = AuthService(repository)\n    token = service.validate_user(\"alice\", \"wonderland\")\n    print(handle_request(service, token, {\"Age\": \" 42 \", \"income\": 50000}))"
+          },
+          "provenance": {
+            "dense_rank": 6,
+            "bm25_rank": 5,
+            "symbol_rank": 1,
+            "graph_rank": 1,
+            "dense_score": 0.373716,
+            "bm25_score": 7.331368,
+            "symbol_score": 10.130813,
+            "graph_score": 2.821429,
+            "rrf_score": 0.078776,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.009091,
+              "bm25": 0.012308,
+              "symbol": 0.02459,
+              "graph": 0.032787
+            },
+            "reranker_score": null,
+            "structural_boost": 0.02459,
+            "final_rank": 1,
+            "final_score": 0.103366
+          },
+          "structural_evidence": [
+            "symbol:call:validate_user",
+            "calls queried symbol validateuser",
+            "caller of validate_user",
+            "references queried symbol"
+          ],
+          "graph_evidence": [
+            "calls validate_user",
+            "caller of AuthService",
+            "caller of validate_user",
+            "caller of UserRepository"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.07825,
+          "snippet": {
+            "snippet_id": "1797718fdb706d78",
+            "file": "auth.py",
+            "lines": [
+              42,
+              49
+            ],
+            "symbol": "AuthService.validate_user",
+            "name": "validate_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L5ad77a83e373",
+            "signature": "def validate_user(self, username, password):",
+            "content": "def validate_user(self, username, password):\n        \"\"\"Authenticate a user by username and password and return a session token.\"\"\"\n        user = self.repository.find_user(username)\n        if user is None:\n            raise AuthenticationError(\"unknown user\")\n        if not hmac.compare_digest(hash_password(password, user[\"salt\"]), user[\"password_hash\"]):\n            raise AuthenticationError(\"wrong password\")\n        return issue_token(username)"
+          },
+          "provenance": {
+            "dense_rank": 2,
+            "bm25_rank": 6,
+            "symbol_rank": 2,
+            "graph_rank": 2,
+            "dense_score": 0.466513,
+            "bm25_score": 7.002816,
+            "symbol_score": 2.420139,
+            "graph_score": 0.722222,
+            "rrf_score": 0.07825,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.009677,
+              "bm25": 0.012121,
+              "symbol": 0.024194,
+              "graph": 0.032258
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 2,
+            "final_score": 0.07825
+          },
+          "structural_evidence": [
+            "symbol:def:validate_user",
+            "symbol:ref:user"
+          ],
+          "graph_evidence": [
+            "member/owner of AuthService",
+            "callee of main",
+            "caller of find_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.077113,
+          "snippet": {
+            "snippet_id": "8902eaa3605cc6a2",
+            "file": "auth.py",
+            "lines": [
+              36,
+              54
+            ],
+            "symbol": "AuthService",
+            "name": "AuthService",
+            "type": "class",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L7ce79bce2804",
+            "signature": "class AuthService:",
+            "content": "class AuthService:\n    \"\"\"Authenticates users against the user repository.\"\"\"\n\n    def __init__(self, repository): ...\n\n    def validate_user(self, username, password): ...\n\n    def current_user(self, token): ..."
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 3,
+            "symbol_rank": 3,
+            "graph_rank": 5,
+            "dense_score": 0.484679,
+            "bm25_score": 9.466917,
+            "symbol_score": 1.688469,
+            "graph_score": 0.5,
+            "rrf_score": 0.077113,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.009836,
+              "bm25": 0.012698,
+              "symbol": 0.02381,
+              "graph": 0.030769
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 3,
+            "final_score": 0.077113
+          },
+          "structural_evidence": [
+            "symbol:ref:validate_user"
+          ],
+          "graph_evidence": [
+            "member/owner of validate_user",
+            "callee of main",
+            "member/owner of current_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.071315,
+          "snippet": {
+            "snippet_id": "2de4c6b2e786ab4b",
+            "file": "database.py",
+            "lines": [
+              42,
+              51
+            ],
+            "symbol": "UserRepository.save_user",
+            "name": "save_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Le8fcde9eb852",
+            "signature": "def save_user(self, user):",
+            "content": "def save_user(self, user):\n        \"\"\"Insert or update a user, retrying on transient database errors.\"\"\"\n        def _write():\n            self.conn.execute(\n                \"INSERT OR REPLACE INTO users (username, salt, password_hash) VALUES (?, ?, ?)\",\n                (user[\"username\"], user[\"salt\"], user[\"password_hash\"]),\n            )\n            self.conn.commit()\n\n        return with_retries(_write)"
+          },
+          "provenance": {
+            "dense_rank": 9,
+            "bm25_rank": 8,
+            "symbol_rank": 5,
+            "graph_rank": 12,
+            "dense_score": 0.320632,
+            "bm25_score": 4.967323,
+            "symbol_score": 0.236386,
+            "graph_score": 0.196429,
+            "rrf_score": 0.071315,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.008696,
+              "bm25": 0.011765,
+              "symbol": 0.023077,
+              "graph": 0.027778
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 4,
+            "final_score": 0.071315
+          },
+          "structural_evidence": [
+            "symbol:param:user"
+          ],
+          "graph_evidence": [
+            "callee of register_user",
+            "member/owner of UserRepository"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.071098,
+          "snippet": {
+            "snippet_id": "1f2e50a29fc1a717",
+            "file": "main.py",
+            "lines": [
+              10,
+              14
+            ],
+            "symbol": "register_user",
+            "name": "register_user",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L81a5f291308d",
+            "signature": "def register_user(repository, username, salt, password_hash):",
+            "content": "def register_user(repository, username, salt, password_hash):\n    \"\"\"Create a new user record and save it.\"\"\"\n    user = {\"username\": username, \"salt\": salt, \"password_hash\": password_hash}\n    repository.save_user(user)\n    return user"
+          },
+          "provenance": {
+            "dense_rank": 10,
+            "bm25_rank": 1,
+            "symbol_rank": 4,
+            "graph_rank": 17,
+            "dense_score": 0.310434,
+            "bm25_score": 12.484693,
+            "symbol_score": 0.393976,
+            "graph_score": 0.1,
+            "rrf_score": 0.071098,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.008571,
+              "bm25": 0.013115,
+              "symbol": 0.023438,
+              "graph": 0.025974
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 5,
+            "final_score": 0.071098
+          },
+          "structural_evidence": [
+            "symbol:ref:user"
+          ],
+          "graph_evidence": [
+            "caller of save_user"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 0.6,
+        "bm25": 0.8,
+        "symbol": 1.5,
+        "graph": 2.0
+      },
+      "query_analysis": {
+        "intent": "CALLER",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "CALLER:Who calls"
+        ],
+        "identifiers": [
+          "validate_user"
+        ],
+        "target_symbols": [
+          "validate_user"
+        ],
+        "expansion_terms": [
+          "account",
+          "profile",
+          "check",
+          "verify",
+          "is_valid",
+          "assert",
+          "schema",
+          "service.validate_user",
+          "validate_user",
+          "register_user",
+          "repository.save_user",
+          "service.current_user"
+        ],
+        "bm25_tokens": [
+          "call",
+          "validate_us",
+          "user",
+          "valid",
+          "account",
+          "profil",
+          "check",
+          "verifi",
+          "is_valid",
+          "assert",
+          "schema",
+          "servic",
+          "register_us",
+          "regist",
+          "repositori",
+          "save_us",
+          "save",
+          "current_us",
+          "current",
+          "find_us",
+          "find"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "What functions are called before the user is saved?",
+      "note": "DATA_FLOW: graph expansion around save_user"
+    },
+    "index": "current",
+    "response": {
+      "query": "What functions are called before the user is saved?",
+      "intent": "DATA_FLOW",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.541,
+        "dense": 35.591,
+        "bm25": 0.467,
+        "symbol": 0.093,
+        "graph": 0.641,
+        "fusion": 0.548,
+        "structural": 0.841,
+        "diversity": 0.264,
+        "total": 39.265
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 29,
+        "symbol": 3,
+        "graph": 20,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.07309,
+          "snippet": {
+            "snippet_id": "2de4c6b2e786ab4b",
+            "file": "database.py",
+            "lines": [
+              42,
+              51
+            ],
+            "symbol": "UserRepository.save_user",
+            "name": "save_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Le8fcde9eb852",
+            "signature": "def save_user(self, user):",
+            "content": "def save_user(self, user):\n        \"\"\"Insert or update a user, retrying on transient database errors.\"\"\"\n        def _write():\n            self.conn.execute(\n                \"INSERT OR REPLACE INTO users (username, salt, password_hash) VALUES (?, ?, ?)\",\n                (user[\"username\"], user[\"salt\"], user[\"password_hash\"]),\n            )\n            self.conn.commit()\n\n        return with_retries(_write)"
+          },
+          "provenance": {
+            "dense_rank": 6,
+            "bm25_rank": 2,
+            "symbol_rank": 3,
+            "graph_rank": 1,
+            "dense_score": 0.181454,
+            "bm25_score": 11.802011,
+            "symbol_score": 0.236386,
+            "graph_score": 0.625,
+            "rrf_score": 0.07309,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.019697,
+              "bm25": 0.01129,
+              "symbol": 0.015873,
+              "graph": 0.02623
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 1,
+            "final_score": 0.07309
+          },
+          "structural_evidence": [
+            "symbol:param:user"
+          ],
+          "graph_evidence": [
+            "callee of register_user",
+            "member/owner of UserRepository"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.073079,
+          "snippet": {
+            "snippet_id": "1f2e50a29fc1a717",
+            "file": "main.py",
+            "lines": [
+              10,
+              14
+            ],
+            "symbol": "register_user",
+            "name": "register_user",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L81a5f291308d",
+            "signature": "def register_user(repository, username, salt, password_hash):",
+            "content": "def register_user(repository, username, salt, password_hash):\n    \"\"\"Create a new user record and save it.\"\"\"\n    user = {\"username\": username, \"salt\": salt, \"password_hash\": password_hash}\n    repository.save_user(user)\n    return user"
+          },
+          "provenance": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "symbol_rank": 1,
+            "graph_rank": 6,
+            "dense_score": 0.225954,
+            "bm25_score": 12.484693,
+            "symbol_score": 0.393976,
+            "graph_score": 0.25,
+            "rrf_score": 0.073079,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.020968,
+              "bm25": 0.011475,
+              "symbol": 0.016393,
+              "graph": 0.024242
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 2,
+            "final_score": 0.073079
+          },
+          "structural_evidence": [
+            "symbol:ref:user"
+          ],
+          "graph_evidence": [
+            "caller of save_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.06367,
+          "snippet": {
+            "snippet_id": "1797718fdb706d78",
+            "file": "auth.py",
+            "lines": [
+              42,
+              49
+            ],
+            "symbol": "AuthService.validate_user",
+            "name": "validate_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L5ad77a83e373",
+            "signature": "def validate_user(self, username, password):",
+            "content": "def validate_user(self, username, password):\n        \"\"\"Authenticate a user by username and password and return a session token.\"\"\"\n        user = self.repository.find_user(username)\n        if user is None:\n            raise AuthenticationError(\"unknown user\")\n        if not hmac.compare_digest(hash_password(password, user[\"salt\"]), user[\"password_hash\"]):\n            raise AuthenticationError(\"wrong password\")\n        return issue_token(username)"
+          },
+          "provenance": {
+            "dense_rank": 21,
+            "bm25_rank": 7,
+            "symbol_rank": 1,
+            "graph_rank": 17,
+            "dense_score": 0.062469,
+            "bm25_score": 7.002816,
+            "symbol_score": 0.393976,
+            "graph_score": 0.071429,
+            "rrf_score": 0.06367,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.016049,
+              "bm25": 0.010448,
+              "symbol": 0.016393,
+              "graph": 0.020779
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 3,
+            "final_score": 0.06367
+          },
+          "structural_evidence": [
+            "symbol:ref:user"
+          ],
+          "graph_evidence": [
+            "member/owner of AuthService"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.056864,
+          "snippet": {
+            "snippet_id": "010d1ec5239f438e",
+            "file": "database.py",
+            "lines": [
+              27,
+              51
+            ],
+            "symbol": "UserRepository",
+            "name": "UserRepository",
+            "type": "class",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L7f1212e781c9",
+            "signature": "class UserRepository:",
+            "content": "class UserRepository:\n    \"\"\"Stores and loads users.\"\"\"\n\n    def __init__(self, conn): ...\n\n    def find_user(self, username): ...\n\n    def save_user(self, user): ..."
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 4,
+            "graph_rank": 5,
+            "dense_score": 0.247099,
+            "bm25_score": 10.265753,
+            "graph_score": 0.25,
+            "rrf_score": 0.056864,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.021311,
+              "bm25": 0.010937,
+              "graph": 0.024615
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 4,
+            "final_score": 0.056864
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "member/owner of save_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.056025,
+          "snippet": {
+            "snippet_id": "87b2cb548b12e5e7",
+            "file": "database.py",
+            "lines": [
+              33,
+              40
+            ],
+            "symbol": "UserRepository.find_user",
+            "name": "find_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L852d02d05309",
+            "signature": "def find_user(self, username):",
+            "content": "def find_user(self, username):\n        \"\"\"Load a user row by username, or None.\"\"\"\n        row = self.conn.execute(\n            \"SELECT username, salt, password_hash FROM users WHERE username = ?\", (username,)\n        ).fetchone()\n        if row is None:\n            return None\n        return {\"username\": row[0], \"salt\": row[1], \"password_hash\": row[2]}"
+          },
+          "provenance": {
+            "dense_rank": 11,
+            "bm25_rank": 11,
+            "graph_rank": 3,
+            "dense_score": 0.122569,
+            "bm25_score": 4.593234,
+            "graph_score": 0.347222,
+            "rrf_score": 0.053566,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.01831,
+              "bm25": 0.009859,
+              "graph": 0.025397
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 5,
+            "final_score": 0.056025
+          },
+          "structural_evidence": [
+            "callee of a top result"
+          ],
+          "graph_evidence": [
+            "callee of validate_user",
+            "member/owner of UserRepository",
+            "callee of current_user"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 1.3,
+        "bm25": 0.7,
+        "symbol": 1.0,
+        "graph": 1.6
+      },
+      "query_analysis": {
+        "intent": "DATA_FLOW",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "DATA_FLOW:before the user is saved"
+        ],
+        "identifiers": [],
+        "target_symbols": [],
+        "expansion_terms": [
+          "save",
+          "store",
+          "persist",
+          "insert",
+          "write",
+          "commit",
+          "account",
+          "profile",
+          "repository.save_user",
+          "save_user",
+          "register_user",
+          "service.current_user"
+        ],
+        "bm25_tokens": [
+          "call",
+          "user",
+          "save",
+          "store",
+          "persist",
+          "insert",
+          "write",
+          "commit",
+          "account",
+          "profil",
+          "repositori",
+          "save_us",
+          "register_us",
+          "regist",
+          "servic",
+          "current_us",
+          "current",
+          "validate_us",
+          "valid",
+          "find_us",
+          "find"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "Where is MAX_RETRIES configured?",
+      "note": "CONFIGURATION: exact symbol definition wins"
+    },
+    "index": "current",
+    "response": {
+      "query": "Where is MAX_RETRIES configured?",
+      "intent": "CONFIGURATION",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.352,
+        "dense": 47.559,
+        "bm25": 0.466,
+        "symbol": 0.112,
+        "graph": 0.737,
+        "fusion": 0.199,
+        "structural": 1.29,
+        "diversity": 0.442,
+        "total": 51.389
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 11,
+        "symbol": 4,
+        "graph": 15,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.082992,
+          "snippet": {
+            "snippet_id": "b78a31169e99428d",
+            "file": "config.py",
+            "lines": [
+              1,
+              9
+            ],
+            "symbol": "MAX_RETRIES,RETRY_BACKOFF_SECONDS,DATABASE_URL",
+            "name": "MAX_RETRIES,RETRY_BACKOFF_SECONDS,DATABASE_URL",
+            "type": "module",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L060811355387",
+            "signature": "",
+            "content": "\"\"\"Application configuration.\"\"\"\n\nimport os\n\nMAX_RETRIES = 5\nRETRY_BACKOFF_SECONDS = 0.5\nDATABASE_URL = os.environ.get(\"APP_DATABASE_URL\", \"sqlite:///app.db\")\nTOKEN_TTL_SECONDS = 3600\nSECRET_KEY = os.environ.get(\"APP_SECRET_KEY\", \"change-me\")"
+          },
+          "provenance": {
+            "dense_rank": 4,
+            "bm25_rank": 1,
+            "symbol_rank": 1,
+            "graph_rank": 1,
+            "dense_score": 0.357874,
+            "bm25_score": 13.961841,
+            "symbol_score": 13.865335,
+            "graph_score": 2.0,
+            "rrf_score": 0.068238,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.0125,
+              "bm25": 0.021311,
+              "symbol": 0.02623,
+              "graph": 0.008197
+            },
+            "reranker_score": null,
+            "structural_boost": 0.014754,
+            "final_rank": 1,
+            "final_score": 0.082992
+          },
+          "structural_evidence": [
+            "symbol:def:MAX_RETRIES",
+            "defines queried symbol maxretries"
+          ],
+          "graph_evidence": [
+            "defines MAX_RETRIES"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.068796,
+          "snippet": {
+            "snippet_id": "f1f2d5ef803986f0",
+            "file": "database.py",
+            "lines": [
+              15,
+              24
+            ],
+            "symbol": "with_retries",
+            "name": "with_retries",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L2a4ddff51267",
+            "signature": "def with_retries(operation):",
+            "content": "def with_retries(operation):\n    \"\"\"Run a database operation, retrying up to MAX_RETRIES times with linear backoff.\"\"\"\n    last_error = None\n    for attempt in range(1, MAX_RETRIES + 1):\n        try:\n            return operation()\n        except sqlite3.OperationalError as exc:\n            last_error = exc\n            time.sleep(RETRY_BACKOFF_SECONDS * attempt)\n    raise DatabaseError(f\"operation failed after {MAX_RETRIES} retries: {last_error}\")"
+          },
+          "provenance": {
+            "dense_rank": 2,
+            "bm25_rank": 3,
+            "symbol_rank": 2,
+            "graph_rank": 4,
+            "dense_score": 0.441715,
+            "bm25_score": 12.922817,
+            "symbol_score": 1.848711,
+            "graph_score": 0.183333,
+            "rrf_score": 0.067157,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.012903,
+              "bm25": 0.020635,
+              "symbol": 0.025806,
+              "graph": 0.007812
+            },
+            "reranker_score": null,
+            "structural_boost": 0.001639,
+            "final_rank": 2,
+            "final_score": 0.068796
+          },
+          "structural_evidence": [
+            "symbol:import:MAX_RETRIES",
+            "references queried symbol"
+          ],
+          "graph_evidence": [
+            "caller of DatabaseError",
+            "callee of save_user"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.067448,
+          "snippet": {
+            "snippet_id": "578eefe8efaef05c",
+            "file": "config.py",
+            "lines": [
+              12,
+              18
+            ],
+            "symbol": "load_config",
+            "name": "load_config",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L226bc40dbe62",
+            "signature": "def load_config():",
+            "content": "def load_config():\n    \"\"\"Return runtime settings as a dictionary, allowing environment overrides.\"\"\"\n    return {\n        \"max_retries\": int(os.environ.get(\"APP_MAX_RETRIES\", MAX_RETRIES)),\n        \"database_url\": DATABASE_URL,\n        \"token_ttl\": TOKEN_TTL_SECONDS,\n    }"
+          },
+          "provenance": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "symbol_rank": 4,
+            "graph_rank": 10,
+            "dense_score": 0.391564,
+            "bm25_score": 13.39909,
+            "symbol_score": 0.770296,
+            "graph_score": 0.071429,
+            "rrf_score": 0.065809,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.012698,
+              "bm25": 0.020968,
+              "symbol": 0.025,
+              "graph": 0.007143
+            },
+            "reranker_score": null,
+            "structural_boost": 0.001639,
+            "final_rank": 3,
+            "final_score": 0.067448
+          },
+          "structural_evidence": [
+            "symbol:ref:MAX_RETRIES",
+            "references queried symbol"
+          ],
+          "graph_evidence": [
+            "callee of main"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.060066,
+          "snippet": {
+            "snippet_id": "0aae1cecedc1048c",
+            "file": "database.py",
+            "lines": [
+              1,
+              7
+            ],
+            "symbol": "<module:7c93bb>",
+            "name": "<module:7c93bb>",
+            "type": "module",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L06a9377c9694",
+            "signature": "",
+            "content": "\"\"\"Persistence layer with retrying writes.\"\"\"\n\nimport sqlite3\nimport time\n\nfrom config import MAX_RETRIES, RETRY_BACKOFF_SECONDS\nfrom errors import DatabaseError"
+          },
+          "provenance": {
+            "dense_rank": 5,
+            "bm25_rank": 4,
+            "symbol_rank": 2,
+            "dense_score": 0.302423,
+            "bm25_score": 9.554699,
+            "symbol_score": 1.848711,
+            "rrf_score": 0.058427,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.012308,
+              "bm25": 0.020313,
+              "symbol": 0.025806
+            },
+            "reranker_score": null,
+            "structural_boost": 0.001639,
+            "final_rank": 4,
+            "final_score": 0.060066
+          },
+          "structural_evidence": [
+            "symbol:import:MAX_RETRIES",
+            "references queried symbol"
+          ],
+          "graph_evidence": [],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.042645,
+          "snippet": {
+            "snippet_id": "2de4c6b2e786ab4b",
+            "file": "database.py",
+            "lines": [
+              42,
+              51
+            ],
+            "symbol": "UserRepository.save_user",
+            "name": "save_user",
+            "type": "method",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Le8fcde9eb852",
+            "signature": "def save_user(self, user):",
+            "content": "def save_user(self, user):\n        \"\"\"Insert or update a user, retrying on transient database errors.\"\"\"\n        def _write():\n            self.conn.execute(\n                \"INSERT OR REPLACE INTO users (username, salt, password_hash) VALUES (?, ?, ?)\",\n                (user[\"username\"], user[\"salt\"], user[\"password_hash\"]),\n            )\n            self.conn.commit()\n\n        return with_retries(_write)"
+          },
+          "provenance": {
+            "dense_rank": 6,
+            "bm25_rank": 5,
+            "graph_rank": 2,
+            "dense_score": 0.252448,
+            "bm25_score": 3.753584,
+            "graph_score": 0.25,
+            "rrf_score": 0.040186,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.012121,
+              "bm25": 0.02,
+              "graph": 0.008065
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 5,
+            "final_score": 0.042645
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of with_retries"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 0.8,
+        "bm25": 1.3,
+        "symbol": 1.6,
+        "graph": 0.5
+      },
+      "query_analysis": {
+        "intent": "CONFIGURATION",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "CONFIGURATION:configured",
+          "CONFIGURATION:MAX_RETRIES"
+        ],
+        "identifiers": [
+          "MAX_RETRIES"
+        ],
+        "target_symbols": [
+          "MAX_RETRIES"
+        ],
+        "expansion_terms": [
+          "config",
+          "settings",
+          "env",
+          "environ",
+          "option",
+          "constant",
+          "retry",
+          "backoff",
+          "with_retries",
+          "RETRY_BACKOFF_SECONDS",
+          "MAX_RETRIES"
+        ],
+        "bm25_tokens": [
+          "max_retri",
+          "max",
+          "retri",
+          "configur",
+          "config",
+          "set",
+          "env",
+          "environ",
+          "option",
+          "constant",
+          "backoff",
+          "with_retri",
+          "retry_backoff_second",
+          "second"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "How is input normalized before prediction?",
+      "note": "DATA_FLOW: preprocessing -> model call chain"
+    },
+    "index": "current",
+    "response": {
+      "query": "How is input normalized before prediction?",
+      "intent": "DATA_FLOW",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.553,
+        "dense": 61.768,
+        "bm25": 0.538,
+        "symbol": 0.119,
+        "graph": 1.019,
+        "fusion": 0.185,
+        "structural": 1.135,
+        "diversity": 0.413,
+        "total": 66.09
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 12,
+        "symbol": 0,
+        "graph": 16,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.058321,
+          "snippet": {
+            "snippet_id": "c9bc501fbb4ac77d",
+            "file": "preprocessing.py",
+            "lines": [
+              23,
+              31
+            ],
+            "symbol": "validate_input",
+            "name": "validate_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lf6e9e1228adc",
+            "signature": "def validate_input(record):",
+            "content": "def validate_input(record):\n    \"\"\"Validate a normalized record and raise ValidationError on bad values.\"\"\"\n    if \"age\" not in record:\n        raise ValidationError(\"missing field: age\")\n    age = int(record[\"age\"])\n    if age < 0 or age > 130:\n        raise ValidationError(f\"age out of range: {age}\")\n    record[\"age\"] = age\n    return record"
+          },
+          "provenance": {
+            "dense_rank": 8,
+            "bm25_rank": 4,
+            "graph_rank": 2,
+            "dense_score": 0.254483,
+            "bm25_score": 6.963944,
+            "graph_score": 0.5625,
+            "rrf_score": 0.055862,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.019118,
+              "bm25": 0.010937,
+              "graph": 0.025806
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 1,
+            "final_score": 0.058321
+          },
+          "structural_evidence": [
+            "callee of a top result"
+          ],
+          "graph_evidence": [
+            "callee of preprocess_input",
+            "caller of ValidationError"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.057976,
+          "snippet": {
+            "snippet_id": "0797631bb54e850e",
+            "file": "main.py",
+            "lines": [
+              17,
+              21
+            ],
+            "symbol": "handle_request",
+            "name": "handle_request",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L726bee4c59b3",
+            "signature": "def handle_request(service, token, payload):",
+            "content": "def handle_request(service, token, payload):\n    \"\"\"Authenticate the caller, preprocess the payload and return a prediction.\"\"\"\n    service.current_user(token)\n    record = preprocess_input(payload)\n    return {\"score\": predict(record)}"
+          },
+          "provenance": {
+            "dense_rank": 3,
+            "bm25_rank": 3,
+            "graph_rank": 1,
+            "dense_score": 0.409813,
+            "bm25_score": 8.401424,
+            "graph_score": 0.626984,
+            "rrf_score": 0.057976,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.020635,
+              "bm25": 0.011111,
+              "graph": 0.02623
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 2,
+            "final_score": 0.057976
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "caller of preprocess_input",
+            "caller of predict",
+            "callee of main"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.057787,
+          "snippet": {
+            "snippet_id": "db48d4de9ca3c4c0",
+            "file": "preprocessing.py",
+            "lines": [
+              34,
+              37
+            ],
+            "symbol": "preprocess_input",
+            "name": "preprocess_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Le65993cdd0f9",
+            "signature": "def preprocess_input(raw):",
+            "content": "def preprocess_input(raw):\n    \"\"\"Full preprocessing pipeline: normalize, then validate.\"\"\"\n    record = normalize_input(raw)\n    return validate_input(record)"
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "graph_rank": 4,
+            "dense_score": 0.592262,
+            "bm25_score": 16.077553,
+            "graph_score": 0.5,
+            "rrf_score": 0.057787,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.021311,
+              "bm25": 0.011475,
+              "graph": 0.025
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 3,
+            "final_score": 0.057787
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "caller of normalize_input",
+            "callee of handle_request",
+            "caller of validate_input"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.057,
+          "snippet": {
+            "snippet_id": "2878b8d32101a721",
+            "file": "preprocessing.py",
+            "lines": [
+              10,
+              20
+            ],
+            "symbol": "normalize_input",
+            "name": "normalize_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L58bfe3c399eb",
+            "signature": "def normalize_input(raw):",
+            "content": "def normalize_input(raw):\n    \"\"\"Normalize a raw request payload: trim strings, lower-case keys, drop unknown fields.\"\"\"\n    cleaned = {}\n    for key, value in raw.items():\n        key = key.strip().lower()\n        if key not in ALLOWED_FIELDS:\n            continue\n        if isinstance(value, str):\n            value = re.sub(r\"\\s+\", \" \", value.strip())\n        cleaned[key] = value\n    return cleaned"
+          },
+          "provenance": {
+            "dense_rank": 4,
+            "bm25_rank": 2,
+            "graph_rank": 3,
+            "dense_score": 0.402795,
+            "bm25_score": 13.524296,
+            "graph_score": 0.5,
+            "rrf_score": 0.057,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.020313,
+              "bm25": 0.01129,
+              "graph": 0.025397
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 4,
+            "final_score": 0.057
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "callee of preprocess_input"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.056331,
+          "snippet": {
+            "snippet_id": "645c99460d9e331a",
+            "file": "model.py",
+            "lines": [
+              13,
+              16
+            ],
+            "symbol": "predict",
+            "name": "predict",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Laafd4651bb86",
+            "signature": "def predict(record):",
+            "content": "def predict(record):\n    \"\"\"Return the probability score for a validated record.\"\"\"\n    z = BIAS + sum(WEIGHTS[k] * float(record.get(k, 0)) for k in WEIGHTS)\n    return sigmoid(z)"
+          },
+          "provenance": {
+            "dense_rank": 6,
+            "bm25_rank": 8,
+            "graph_rank": 7,
+            "dense_score": 0.357877,
+            "bm25_score": 3.379454,
+            "graph_score": 0.166667,
+            "rrf_score": 0.053872,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.019697,
+              "bm25": 0.010294,
+              "graph": 0.023881
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 5,
+            "final_score": 0.056331
+          },
+          "structural_evidence": [
+            "callee of a top result"
+          ],
+          "graph_evidence": [
+            "callee of handle_request"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 1.3,
+        "bm25": 0.7,
+        "symbol": 1.0,
+        "graph": 1.6
+      },
+      "query_analysis": {
+        "intent": "DATA_FLOW",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "DATA_FLOW:before prediction",
+          "DATA_FLOW:How is input normalized",
+          "DATA_FLOW:input normalized"
+        ],
+        "identifiers": [],
+        "target_symbols": [
+          "prediction"
+        ],
+        "expansion_terms": [
+          "normalize",
+          "clean",
+          "strip",
+          "lower",
+          "sanitize",
+          "preprocess",
+          "transform",
+          "predict",
+          "normalize_input",
+          "validate_input",
+          "preprocess_input"
+        ],
+        "bm25_tokens": [
+          "input",
+          "normal",
+          "predict",
+          "clean",
+          "strip",
+          "lower",
+          "sanit",
+          "preprocess",
+          "transform",
+          "normalize_input",
+          "validate_input",
+          "valid",
+          "preprocess_input"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "What functions does preprocess_input call?",
+      "note": "CALLEE: callees of the queried symbol"
+    },
+    "index": "current",
+    "response": {
+      "query": "What functions does preprocess_input call?",
+      "intent": "CALLEE",
+      "intent_confidence": 0.66,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.491,
+        "dense": 60.923,
+        "bm25": 0.549,
+        "symbol": 0.228,
+        "graph": 1.157,
+        "fusion": 0.19,
+        "structural": 1.217,
+        "diversity": 0.41,
+        "total": 65.441
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 26,
+        "symbol": 2,
+        "graph": 16,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.084205,
+          "snippet": {
+            "snippet_id": "db48d4de9ca3c4c0",
+            "file": "preprocessing.py",
+            "lines": [
+              34,
+              37
+            ],
+            "symbol": "preprocess_input",
+            "name": "preprocess_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Le65993cdd0f9",
+            "signature": "def preprocess_input(raw):",
+            "content": "def preprocess_input(raw):\n    \"\"\"Full preprocessing pipeline: normalize, then validate.\"\"\"\n    record = normalize_input(raw)\n    return validate_input(record)"
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "symbol_rank": 1,
+            "graph_rank": 3,
+            "dense_score": 0.489797,
+            "bm25_score": 16.256119,
+            "symbol_score": 15.196219,
+            "graph_score": 1.354167,
+            "rrf_score": 0.079287,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.009836,
+              "bm25": 0.013115,
+              "symbol": 0.02459,
+              "graph": 0.031746
+            },
+            "reranker_score": null,
+            "structural_boost": 0.004918,
+            "final_rank": 1,
+            "final_score": 0.084205
+          },
+          "structural_evidence": [
+            "symbol:def:preprocess_input",
+            "defines queried symbol preprocessinput"
+          ],
+          "graph_evidence": [
+            "defines preprocess_input",
+            "caller of normalize_input",
+            "callee of handle_request",
+            "caller of validate_input"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.068559,
+          "snippet": {
+            "snippet_id": "c9bc501fbb4ac77d",
+            "file": "preprocessing.py",
+            "lines": [
+              23,
+              31
+            ],
+            "symbol": "validate_input",
+            "name": "validate_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lf6e9e1228adc",
+            "signature": "def validate_input(record):",
+            "content": "def validate_input(record):\n    \"\"\"Validate a normalized record and raise ValidationError on bad values.\"\"\"\n    if \"age\" not in record:\n        raise ValidationError(\"missing field: age\")\n    age = int(record[\"age\"])\n    if age < 0 or age > 130:\n        raise ValidationError(f\"age out of range: {age}\")\n    record[\"age\"] = age\n    return record"
+          },
+          "provenance": {
+            "dense_rank": 20,
+            "bm25_rank": 3,
+            "graph_rank": 1,
+            "dense_score": 0.029169,
+            "bm25_score": 7.137266,
+            "graph_score": 2.55,
+            "rrf_score": 0.052985,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.0075,
+              "bm25": 0.012698,
+              "graph": 0.032787
+            },
+            "reranker_score": null,
+            "structural_boost": 0.015574,
+            "final_rank": 2,
+            "final_score": 0.068559
+          },
+          "structural_evidence": [
+            "callee of preprocess_input",
+            "callee of a top result"
+          ],
+          "graph_evidence": [
+            "called by preprocess_input",
+            "callee of preprocess_input",
+            "caller of ValidationError"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.067507,
+          "snippet": {
+            "snippet_id": "2878b8d32101a721",
+            "file": "preprocessing.py",
+            "lines": [
+              10,
+              20
+            ],
+            "symbol": "normalize_input",
+            "name": "normalize_input",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L58bfe3c399eb",
+            "signature": "def normalize_input(raw):",
+            "content": "def normalize_input(raw):\n    \"\"\"Normalize a raw request payload: trim strings, lower-case keys, drop unknown fields.\"\"\"\n    cleaned = {}\n    for key, value in raw.items():\n        key = key.strip().lower()\n        if key not in ALLOWED_FIELDS:\n            continue\n        if isinstance(value, str):\n            value = re.sub(r\"\\s+\", \" \", value.strip())\n        cleaned[key] = value\n    return cleaned"
+          },
+          "provenance": {
+            "dense_rank": 5,
+            "bm25_rank": 2,
+            "graph_rank": 2,
+            "dense_score": 0.240995,
+            "bm25_score": 7.410625,
+            "graph_score": 2.5,
+            "rrf_score": 0.054392,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.009231,
+              "bm25": 0.012903,
+              "graph": 0.032258
+            },
+            "reranker_score": null,
+            "structural_boost": 0.013115,
+            "final_rank": 3,
+            "final_score": 0.067507
+          },
+          "structural_evidence": [
+            "callee of preprocess_input"
+          ],
+          "graph_evidence": [
+            "called by preprocess_input",
+            "callee of preprocess_input"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.054913,
+          "snippet": {
+            "snippet_id": "0797631bb54e850e",
+            "file": "main.py",
+            "lines": [
+              17,
+              21
+            ],
+            "symbol": "handle_request",
+            "name": "handle_request",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L726bee4c59b3",
+            "signature": "def handle_request(service, token, payload):",
+            "content": "def handle_request(service, token, payload):\n    \"\"\"Authenticate the caller, preprocess the payload and return a prediction.\"\"\"\n    service.current_user(token)\n    record = preprocess_input(payload)\n    return {\"score\": predict(record)}"
+          },
+          "provenance": {
+            "dense_rank": 3,
+            "bm25_rank": 4,
+            "graph_rank": 4,
+            "dense_score": 0.378505,
+            "bm25_score": 6.756629,
+            "graph_score": 0.638889,
+            "rrf_score": 0.053274,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.009524,
+              "bm25": 0.0125,
+              "graph": 0.03125
+            },
+            "reranker_score": null,
+            "structural_boost": 0.001639,
+            "final_rank": 4,
+            "final_score": 0.054913
+          },
+          "structural_evidence": [
+            "calls queried symbol preprocessinput",
+            "references queried symbol"
+          ],
+          "graph_evidence": [
+            "caller of preprocess_input",
+            "callee of main",
+            "caller of predict"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.052985,
+          "snippet": {
+            "snippet_id": "d2a839dfaf2fa9db",
+            "file": "main.py",
+            "lines": [
+              24,
+              29
+            ],
+            "symbol": "main",
+            "name": "main",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lb32b293d7aa2",
+            "signature": "def main():",
+            "content": "def main():\n    settings = load_config()\n    repository = UserRepository(connect(settings[\"database_url\"]))\n    service = AuthService(repository)\n    token = service.validate_user(\"alice\", \"wonderland\")\n    print(handle_request(service, token, {\"Age\": \" 42 \", \"income\": 50000}))"
+          },
+          "provenance": {
+            "dense_rank": 7,
+            "bm25_rank": 11,
+            "graph_rank": 6,
+            "dense_score": 0.134277,
+            "bm25_score": 1.780399,
+            "graph_score": 0.125,
+            "rrf_score": 0.050526,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.008955,
+              "bm25": 0.011268,
+              "graph": 0.030303
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 5,
+            "final_score": 0.052985
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of handle_request"
+          ],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 0.6,
+        "bm25": 0.8,
+        "symbol": 1.5,
+        "graph": 2.0
+      },
+      "query_analysis": {
+        "intent": "CALLEE",
+        "intent_confidence": 0.66,
+        "intent_evidence": [
+          "CALLEE:What functions does preprocess_input cal",
+          "DATA_FLOW:preprocess_input"
+        ],
+        "identifiers": [
+          "preprocess_input"
+        ],
+        "target_symbols": [
+          "preprocess_input"
+        ],
+        "expansion_terms": [
+          "normalize",
+          "clean",
+          "tokenize",
+          "transform",
+          "validate",
+          "preprocess_input",
+          "normalize_input",
+          "validate_input"
+        ],
+        "bm25_tokens": [
+          "preprocess_input",
+          "input",
+          "preprocess",
+          "call",
+          "normal",
+          "clean",
+          "token",
+          "transform",
+          "valid",
+          "normalize_input",
+          "validate_input"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "Which errors are raised when the database connection fails?",
+      "note": "ERROR"
+    },
+    "index": "current",
+    "response": {
+      "query": "Which errors are raised when the database connection fails?",
+      "intent": "ERROR",
+      "intent_confidence": 1.0,
+      "version_scope": "latest",
+      "timings_ms": {
+        "preprocess": 0.69,
+        "dense": 38.184,
+        "bm25": 0.541,
+        "symbol": 0.115,
+        "graph": 0.484,
+        "fusion": 0.112,
+        "structural": 0.642,
+        "diversity": 0.219,
+        "total": 41.207
+      },
+      "candidate_counts": {
+        "dense": 34,
+        "bm25": 26,
+        "symbol": 6,
+        "graph": 7,
+        "fused": 34,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.069166,
+          "snippet": {
+            "snippet_id": "f1f2d5ef803986f0",
+            "file": "database.py",
+            "lines": [
+              15,
+              24
+            ],
+            "symbol": "with_retries",
+            "name": "with_retries",
+            "type": "function",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L2a4ddff51267",
+            "signature": "def with_retries(operation):",
+            "content": "def with_retries(operation):\n    \"\"\"Run a database operation, retrying up to MAX_RETRIES times with linear backoff.\"\"\"\n    last_error = None\n    for attempt in range(1, MAX_RETRIES + 1):\n        try:\n            return operation()\n        except sqlite3.OperationalError as exc:\n            last_error = exc\n            time.sleep(RETRY_BACKOFF_SECONDS * attempt)\n    raise DatabaseError(f\"operation failed after {MAX_RETRIES} retries: {last_error}\")"
+          },
+          "provenance": {
+            "dense_rank": 5,
+            "bm25_rank": 1,
+            "symbol_rank": 2,
+            "graph_rank": 1,
+            "dense_score": 0.438794,
+            "bm25_score": 18.140581,
+            "symbol_score": 3.545784,
+            "graph_score": 0.5,
+            "rrf_score": 0.065887,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.015385,
+              "bm25": 0.021311,
+              "symbol": 0.019355,
+              "graph": 0.009836
+            },
+            "reranker_score": null,
+            "structural_boost": 0.003279,
+            "final_rank": 1,
+            "final_score": 0.069166
+          },
+          "structural_evidence": [
+            "symbol:call:DatabaseError",
+            "imports errors"
+          ],
+          "graph_evidence": [
+            "caller of DatabaseError"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 2,
+          "score": 0.065589,
+          "snippet": {
+            "snippet_id": "01185c37d7fd3833",
+            "file": "errors.py",
+            "lines": [
+              16,
+              17
+            ],
+            "symbol": "DatabaseError",
+            "name": "DatabaseError",
+            "type": "class",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L526af3c58b0b",
+            "signature": "class DatabaseError(AppError):",
+            "content": "class DatabaseError(AppError):\n    \"\"\"Raised when the database cannot be reached after retries.\"\"\""
+          },
+          "provenance": {
+            "dense_rank": 1,
+            "bm25_rank": 5,
+            "symbol_rank": 1,
+            "graph_rank": 3,
+            "dense_score": 0.680804,
+            "bm25_score": 10.332088,
+            "symbol_score": 5.673255,
+            "graph_score": 0.25,
+            "rrf_score": 0.065589,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.016393,
+              "bm25": 0.02,
+              "symbol": 0.019672,
+              "graph": 0.009524
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 2,
+            "final_score": 0.065589
+          },
+          "structural_evidence": [
+            "symbol:def:DatabaseError"
+          ],
+          "graph_evidence": [
+            "callee of with_retries"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 3,
+          "score": 0.056792,
+          "snippet": {
+            "snippet_id": "0aae1cecedc1048c",
+            "file": "database.py",
+            "lines": [
+              1,
+              7
+            ],
+            "symbol": "<module:7c93bb>",
+            "name": "<module:7c93bb>",
+            "type": "module",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L06a9377c9694",
+            "signature": "",
+            "content": "\"\"\"Persistence layer with retrying writes.\"\"\"\n\nimport sqlite3\nimport time\n\nfrom config import MAX_RETRIES, RETRY_BACKOFF_SECONDS\nfrom errors import DatabaseError"
+          },
+          "provenance": {
+            "dense_rank": 4,
+            "bm25_rank": 9,
+            "symbol_rank": 3,
+            "dense_score": 0.462688,
+            "bm25_score": 8.494289,
+            "symbol_score": 0.850988,
+            "rrf_score": 0.053513,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.015625,
+              "bm25": 0.018841,
+              "symbol": 0.019048
+            },
+            "reranker_score": null,
+            "structural_boost": 0.003279,
+            "final_rank": 3,
+            "final_score": 0.056792
+          },
+          "structural_evidence": [
+            "symbol:import:DatabaseError",
+            "symbol:import:errors",
+            "imports errors"
+          ],
+          "graph_evidence": [],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.052587,
+          "snippet": {
+            "snippet_id": "cca7939fc0e33d9f",
+            "file": "auth.py",
+            "lines": [
+              1,
+              8
+            ],
+            "symbol": "<module:a0d7a7>",
+            "name": "<module:a0d7a7>",
+            "type": "module",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "Lb7e5f2dac54f",
+            "signature": "",
+            "content": "\"\"\"User authentication: password hashing and signed session tokens.\"\"\"\n\nimport hashlib\nimport hmac\nimport time\n\nfrom config import SECRET_KEY, TOKEN_TTL_SECONDS\nfrom errors import AuthenticationError"
+          },
+          "provenance": {
+            "dense_rank": 14,
+            "bm25_rank": 15,
+            "symbol_rank": 5,
+            "dense_score": 0.227866,
+            "bm25_score": 3.738197,
+            "symbol_score": 0.283663,
+            "rrf_score": 0.049308,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.013514,
+              "bm25": 0.017333,
+              "symbol": 0.018462
+            },
+            "reranker_score": null,
+            "structural_boost": 0.003279,
+            "final_rank": 4,
+            "final_score": 0.052587
+          },
+          "structural_evidence": [
+            "symbol:import:errors",
+            "imports errors"
+          ],
+          "graph_evidence": [],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.05089,
+          "snippet": {
+            "snippet_id": "329d55aa10c13b63",
+            "file": "main.py",
+            "lines": [
+              1,
+              7
+            ],
+            "symbol": "<module:b81797>",
+            "name": "<module:b81797>",
+            "type": "module",
+            "language": "python",
+            "repository": "sample_repo",
+            "commit": "worktree",
+            "commits": [
+              "worktree"
+            ],
+            "lineage_id": "L6c6c584fd380",
+            "signature": "",
+            "content": "\"\"\"Service entry point: authenticate, preprocess, predict and store.\"\"\"\n\nfrom auth import AuthService\nfrom config import load_config\nfrom database import UserRepository, connect\nfrom model import predict\nfrom preprocessing import preprocess_input"
+          },
+          "provenance": {
+            "dense_rank": 22,
+            "bm25_rank": 18,
+            "symbol_rank": 4,
+            "dense_score": 0.141972,
+            "bm25_score": 3.217693,
+            "symbol_score": 0.364187,
+            "rrf_score": 0.047612,
+            "fused_rank": 5,
+            "contributions": {
+              "dense": 0.012195,
+              "bm25": 0.016667,
+              "symbol": 0.01875
+            },
+            "reranker_score": null,
+            "structural_boost": 0.003279,
+            "final_rank": 5,
+            "final_score": 0.05089
+          },
+          "structural_evidence": [
+            "symbol:import:database",
+            "imports database"
+          ],
+          "graph_evidence": [],
+          "lineage": null
+        }
+      ],
+      "weights": {
+        "dense": 1.0,
+        "bm25": 1.3,
+        "symbol": 1.2,
+        "graph": 0.6
+      },
+      "query_analysis": {
+        "intent": "ERROR",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "ERROR:errors"
+        ],
+        "identifiers": [],
+        "target_symbols": [],
+        "expansion_terms": [
+          "db",
+          "sql",
+          "query",
+          "cursor",
+          "commit",
+          "insert",
+          "save",
+          "persist",
+          "DatabaseError",
+          "OperationalError",
+          "last_error",
+          "sqlite3.connect"
+        ],
+        "bm25_tokens": [
+          "error",
+          "rais",
+          "databas",
+          "connect",
+          "fail",
+          "db",
+          "sql",
+          "queri",
+          "cursor",
+          "commit",
+          "insert",
+          "save",
+          "persist",
+          "databaseerror",
+          "operationalerror",
+          "oper",
+          "last_error",
+          "last",
+          "sqlite3",
+          "sqlite",
+          "database_url",
+          "url",
+          "validationerror",
+          "valid",
+          "apperror",
+          "app",
+          "authenticationerror",
+          "authent"
+        ]
+      },
+      "dropped": []
+    }
+  },
+  {
+    "query": {
+      "query": "How did authentication change between versions?",
+      "note": "EVOLUTION: needs the demo history index (all versions + lineage)",
+      "version": "all"
+    },
+    "index": "history",
+    "response": {
+      "query": "How did authentication change between versions?",
+      "intent": "EVOLUTION",
+      "intent_confidence": 1.0,
+      "version_scope": "all",
+      "timings_ms": {
+        "preprocess": 0.363,
+        "dense": 45.501,
+        "bm25": 0.621,
+        "symbol": 0.191,
+        "graph": 1.126,
+        "fusion": 0.325,
+        "structural": 1.647,
+        "diversity": 0.547,
+        "total": 50.559
+      },
+      "candidate_counts": {
+        "dense": 53,
+        "bm25": 39,
+        "symbol": 0,
+        "graph": 14,
+        "fused": 53,
+        "final": 5
+      },
+      "retrievers": {
+        "dense": "enabled (jina-code-0.5b)",
+        "bm25": "enabled",
+        "symbol": "enabled",
+        "graph": "enabled (rustworkx)",
+        "reranker": "disabled"
+      },
+      "results": [
+        {
+          "rank": 1,
+          "score": 0.04331,
+          "snippet": {
+            "snippet_id": "6971b10d899c574a",
+            "file": "auth.py",
+            "lines": [
+              30,
+              37
+            ],
+            "symbol": "AuthService.authenticate",
+            "name": "authenticate",
+            "type": "method",
+            "language": "python",
+            "repository": "demo_history_repo",
+            "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+            "commits": [
+              "8e22bc376e756bfa56287e91d455f34fc2601277"
+            ],
+            "lineage_id": "L2f9e8ea40fc2",
+            "signature": "def authenticate(self, username, password):",
+            "content": "def authenticate(self, username, password):\n        \"\"\"Authenticate a user by username and password and return a session token.\"\"\"\n        user = self.repository.find_user(username)\n        if user is None:\n            raise AuthenticationError(\"unknown user\")\n        if hash_password(password, user[\"salt\"]) != user[\"password_hash\"]:\n            raise AuthenticationError(\"wrong password\")\n        return issue_token(username)"
+          },
+          "provenance": {
+            "dense_rank": 6,
+            "bm25_rank": 1,
+            "graph_rank": 8,
+            "dense_score": 0.360247,
+            "bm25_score": 10.920151,
+            "graph_score": 0.291667,
+            "rrf_score": 0.04331,
+            "fused_rank": 2,
+            "contributions": {
+              "dense": 0.015152,
+              "bm25": 0.016393,
+              "graph": 0.011765
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 1,
+            "final_score": 0.04331
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "caller of AuthenticationError",
+            "member/owner of AuthService"
+          ],
+          "lineage": [
+            {
+              "idx": 20,
+              "symbol": "AuthService.authenticate",
+              "file": "auth.py",
+              "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+              "is_this": true
+            },
+            {
+              "idx": 40,
+              "symbol": "AuthService.validate_user",
+              "file": "auth.py",
+              "commit": "418f266394dba8caa13a40802ef70b49f6f1c0f7",
+              "is_this": false
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "score": 0.044632,
+          "snippet": {
+            "snippet_id": "ba38ec458ae4aefc",
+            "file": "auth.py",
+            "lines": [
+              42,
+              49
+            ],
+            "symbol": "AuthService.validate_user",
+            "name": "validate_user",
+            "type": "method",
+            "language": "python",
+            "repository": "demo_history_repo",
+            "commit": "418f266394dba8caa13a40802ef70b49f6f1c0f7",
+            "commits": [
+              "418f266394dba8caa13a40802ef70b49f6f1c0f7"
+            ],
+            "lineage_id": "L2f9e8ea40fc2",
+            "signature": "def validate_user(self, username, password):",
+            "content": "def validate_user(self, username, password):\n        \"\"\"Authenticate a user by username and password and return a session token.\"\"\"\n        user = self.repository.find_user(username)\n        if user is None:\n            raise AuthenticationError(\"unknown user\")\n        if not hmac.compare_digest(hash_password(password, user[\"salt\"]), user[\"password_hash\"]):\n            raise AuthenticationError(\"wrong password\")\n        return issue_token(username)"
+          },
+          "provenance": {
+            "dense_rank": 8,
+            "bm25_rank": 3,
+            "graph_rank": 9,
+            "dense_score": 0.359039,
+            "bm25_score": 10.182348,
+            "graph_score": 0.266667,
+            "rrf_score": 0.042173,
+            "fused_rank": 4,
+            "contributions": {
+              "dense": 0.014706,
+              "bm25": 0.015873,
+              "graph": 0.011594
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 2,
+            "final_score": 0.044632
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of AuthenticationError",
+            "member/owner of AuthService"
+          ],
+          "lineage": [
+            {
+              "idx": 20,
+              "symbol": "AuthService.authenticate",
+              "file": "auth.py",
+              "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+              "is_this": false
+            },
+            {
+              "idx": 40,
+              "symbol": "AuthService.validate_user",
+              "file": "auth.py",
+              "commit": "418f266394dba8caa13a40802ef70b49f6f1c0f7",
+              "is_this": true
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "score": 0.044417,
+          "snippet": {
+            "snippet_id": "ed479933153d7a45",
+            "file": "errors.py",
+            "lines": [
+              8,
+              9
+            ],
+            "symbol": "AuthenticationError",
+            "name": "AuthenticationError",
+            "type": "class",
+            "language": "python",
+            "repository": "demo_history_repo",
+            "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+            "commits": [
+              "8e22bc376e756bfa56287e91d455f34fc2601277",
+              "418f266394dba8caa13a40802ef70b49f6f1c0f7"
+            ],
+            "lineage_id": "Ldcda5c6fe2e1",
+            "signature": "class AuthenticationError(AppError):",
+            "content": "class AuthenticationError(AppError):\n    \"\"\"Raised when credentials or tokens are invalid.\"\"\""
+          },
+          "provenance": {
+            "dense_rank": 5,
+            "bm25_rank": 2,
+            "graph_rank": 2,
+            "dense_score": 0.361805,
+            "bm25_score": 10.375034,
+            "graph_score": 0.395833,
+            "rrf_score": 0.044417,
+            "fused_rank": 1,
+            "contributions": {
+              "dense": 0.015385,
+              "bm25": 0.016129,
+              "graph": 0.012903
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 3,
+            "final_score": 0.044417
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "callee of authenticate",
+            "callee of validate_user",
+            "callee of verify_token"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 4,
+          "score": 0.043145,
+          "snippet": {
+            "snippet_id": "d0410ec1b5f28c83",
+            "file": "auth.py",
+            "lines": [
+              24,
+              33
+            ],
+            "symbol": "verify_token",
+            "name": "verify_token",
+            "type": "function",
+            "language": "python",
+            "repository": "demo_history_repo",
+            "commit": "418f266394dba8caa13a40802ef70b49f6f1c0f7",
+            "commits": [
+              "418f266394dba8caa13a40802ef70b49f6f1c0f7"
+            ],
+            "lineage_id": "Ld5d94ac53e9d",
+            "signature": "def verify_token(token):",
+            "content": "def verify_token(token):\n    \"\"\"Check a token's signature and expiry; return the username if valid.\"\"\"\n    username, expiry, signature = token.rsplit(\":\", 2)\n    payload = f\"{username}:{expiry}\"\n    expected = hmac.new(SECRET_KEY.encode(), payload.encode(), hashlib.sha256).hexdigest()\n    if not hmac.compare_digest(expected, signature):\n        raise AuthenticationError(\"bad token signature\")\n    if int(expiry) < time.time():\n        raise AuthenticationError(\"token expired\")\n    return username"
+          },
+          "provenance": {
+            "dense_rank": 9,
+            "bm25_rank": 7,
+            "graph_rank": 11,
+            "dense_score": 0.343347,
+            "bm25_score": 5.790587,
+            "graph_score": 0.166667,
+            "rrf_score": 0.040686,
+            "fused_rank": 6,
+            "contributions": {
+              "dense": 0.014493,
+              "bm25": 0.014925,
+              "graph": 0.011268
+            },
+            "reranker_score": null,
+            "structural_boost": 0.002459,
+            "final_rank": 4,
+            "final_score": 0.043145
+          },
+          "structural_evidence": [
+            "caller of a top result"
+          ],
+          "graph_evidence": [
+            "caller of AuthenticationError"
+          ],
+          "lineage": null
+        },
+        {
+          "rank": 5,
+          "score": 0.042453,
+          "snippet": {
+            "snippet_id": "1ce87b474a524a4a",
+            "file": "auth.py",
+            "lines": [
+              24,
+              37
+            ],
+            "symbol": "AuthService",
+            "name": "AuthService",
+            "type": "class",
+            "language": "python",
+            "repository": "demo_history_repo",
+            "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+            "commits": [
+              "8e22bc376e756bfa56287e91d455f34fc2601277"
+            ],
+            "lineage_id": "Le051ca2e6398",
+            "signature": "class AuthService:",
+            "content": "class AuthService:\n    \"\"\"Authenticates users against the user repository.\"\"\"\n\n    def __init__(self, repository): ...\n\n    def authenticate(self, username, password): ..."
+          },
+          "provenance": {
+            "dense_rank": 3,
+            "bm25_rank": 6,
+            "graph_rank": 10,
+            "dense_score": 0.395978,
+            "bm25_score": 5.907484,
+            "graph_score": 0.25,
+            "rrf_score": 0.042453,
+            "fused_rank": 3,
+            "contributions": {
+              "dense": 0.015873,
+              "bm25": 0.015152,
+              "graph": 0.011429
+            },
+            "reranker_score": null,
+            "structural_boost": 0.0,
+            "final_rank": 5,
+            "final_score": 0.042453
+          },
+          "structural_evidence": [],
+          "graph_evidence": [
+            "member/owner of authenticate"
+          ],
+          "lineage": [
+            {
+              "idx": 18,
+              "symbol": "AuthService",
+              "file": "auth.py",
+              "commit": "8e22bc376e756bfa56287e91d455f34fc2601277",
+              "is_this": true
+            },
+            {
+              "idx": 39,
+              "symbol": "AuthService",
+              "file": "auth.py",
+              "commit": "418f266394dba8caa13a40802ef70b49f6f1c0f7",
+              "is_this": false
+            }
+          ]
+        }
+      ],
+      "weights": {
+        "dense": 1.0,
+        "bm25": 1.0,
+        "symbol": 1.2,
+        "graph": 0.8
+      },
+      "query_analysis": {
+        "intent": "EVOLUTION",
+        "intent_confidence": 1.0,
+        "intent_evidence": [
+          "EVOLUTION:How did authentication change",
+          "EVOLUTION:between versions",
+          "EVOLUTION:versions"
+        ],
+        "identifiers": [],
+        "target_symbols": [],
+        "expansion_terms": [
+          "auth",
+          "authenticate",
+          "login",
+          "token",
+          "jwt",
+          "password",
+          "credential",
+          "session",
+          "service.authenticate",
+          "AuthenticationError"
+        ],
+        "bm25_tokens": [
+          "authent",
+          "chang",
+          "version",
+          "auth",
+          "login",
+          "token",
+          "jwt",
+          "password",
+          "credenti",
+          "session",
+          "servic",
+          "authenticationerror",
+          "error"
+        ]
+      },
+      "dropped": []
+    }
+  }
+]
