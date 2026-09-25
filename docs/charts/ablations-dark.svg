@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="390" viewBox="0 0 760 390" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title id="t">Ablations: &quot;dense only&quot; scores highest (NDCG@10 0.838)</title><desc id="d">A dense only: NDCG@10 0.838; B BM25 only: NDCG@10 0.022; C dense + BM25 (score fusion): NDCG@10 0.579; D dense + BM25 + RRF: NDCG@10 0.454; D2 dense + BM25 + RRF (dense-weighted): NDCG@10 0.761; E + identifier preprocessing: NDCG@10 0.454; F + structural representation: NDCG@10 0.457; G + symbol retrieval: NDCG@10 0.175</desc>
+<text x="24" y="30" font-size="16" font-weight="600" fill="#ffffff">Ablations: &quot;dense only&quot; scores highest (NDCG@10 0.838)</text>
+<text x="24" y="50" font-size="12.5" fill="#c3c2b7">AppsRetrieval full test split, 3765 queries / 8765 documents. Highlighted: best configuration.</text>
+<line x1="250.0" y1="72" x2="250.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="250.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">0.0</text>
+<line x1="334.0" y1="72" x2="334.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="334.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">0.2</text>
+<line x1="418.0" y1="72" x2="418.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="418.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">0.4</text>
+<line x1="502.0" y1="72" x2="502.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="502.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">0.6</text>
+<line x1="586.0" y1="72" x2="586.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="586.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">0.8</text>
+<line x1="670.0" y1="72" x2="670.0" y2="356" stroke="#2c2c2a" stroke-width="1"/>
+<text x="670.0" y="372.0" font-size="11" fill="#9d9b94" text-anchor="middle" font-weight="400" style="font-variant-numeric: tabular-nums">1.0</text>
+<text x="238.0" y="93.0" font-size="12.5" fill="#ffffff" text-anchor="end" font-weight="600" style="font-variant-numeric: tabular-nums">A  dense only</text>
+<path d="M250.0,78.0 H598.0 Q602.0,78.0 602.0,82.0 V96.0 Q602.0,100.0 598.0,100.0 H250.0 Z" fill="#3987e5"/>
+<text x="610.0" y="93.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.838</text>
+<text x="238.0" y="127.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">B  BM25 only</text>
+<path d="M250.0,112.0 H255.2 Q259.2,112.0 259.2,116.0 V130.0 Q259.2,134.0 255.2,134.0 H250.0 Z" fill="#898781"/>
+<text x="267.2" y="127.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.022</text>
+<text x="238.0" y="161.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">C  dense + BM25 (score fusion)</text>
+<path d="M250.0,146.0 H489.4 Q493.4,146.0 493.4,150.0 V164.0 Q493.4,168.0 489.4,168.0 H250.0 Z" fill="#898781"/>
+<text x="501.4" y="161.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.579</text>
+<text x="238.0" y="195.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">D  dense + BM25 + RRF</text>
+<path d="M250.0,180.0 H436.8 Q440.8,180.0 440.8,184.0 V198.0 Q440.8,202.0 436.8,202.0 H250.0 Z" fill="#898781"/>
+<text x="448.8" y="195.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.454</text>
+<text x="238.0" y="229.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">D2  dense + BM25 + RRF (dense-weighted)</text>
+<path d="M250.0,214.0 H565.5 Q569.5,214.0 569.5,218.0 V232.0 Q569.5,236.0 565.5,236.0 H250.0 Z" fill="#898781"/>
+<text x="577.5" y="229.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.761</text>
+<text x="238.0" y="263.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">E  + identifier preprocessing</text>
+<path d="M250.0,248.0 H436.6 Q440.6,248.0 440.6,252.0 V266.0 Q440.6,270.0 436.6,270.0 H250.0 Z" fill="#898781"/>
+<text x="448.6" y="263.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.454</text>
+<text x="238.0" y="297.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">F  + structural representation</text>
+<path d="M250.0,282.0 H437.8 Q441.8,282.0 441.8,286.0 V300.0 Q441.8,304.0 437.8,304.0 H250.0 Z" fill="#898781"/>
+<text x="449.8" y="297.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.457</text>
+<text x="238.0" y="331.0" font-size="12.5" fill="#c3c2b7" text-anchor="end" font-weight="400" style="font-variant-numeric: tabular-nums">G  + symbol retrieval</text>
+<path d="M250.0,316.0 H319.3 Q323.3,316.0 323.3,320.0 V334.0 Q323.3,338.0 319.3,338.0 H250.0 Z" fill="#898781"/>
+<text x="331.3" y="331.0" font-size="12" fill="#ffffff" text-anchor="start" font-weight="400" style="font-variant-numeric: tabular-nums">0.175</text>
+<line x1="250" y1="72" x2="250" y2="356" stroke="#383835" stroke-width="1"/>
+</svg>

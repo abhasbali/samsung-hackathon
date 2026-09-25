@@ -14,10 +14,43 @@ Intent: CALLER (confidence 1.0)   scope: latest
     retrievers: dense#3, bm25#6, symbol#2, graph#2
 ```
 
+## Results at a glance
+
+Every chart is generated from the stored result files by `scripts/make_charts.py`; the exact numbers are in the tables further down.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/rank_curve-dark.svg">
+  <img src="docs/charts/rank_curve-light.svg" alt="Official AppsRetrieval run: NDCG@k and Recall@k for k from 1 to 1000" width="760">
+</picture>
+
+**Official result.** The submitted run on the full AppsRetrieval test split. The correct solution is usually the first hit and almost always in the top 10.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/ablations-dark.svg">
+  <img src="docs/charts/ablations-light.svg" alt="Ablation study: NDCG@10 for each retrieval configuration on the full AppsRetrieval test split" width="760">
+</picture>
+
+**Ablations.** Each configuration measured on the full test split. On AppsRetrieval, queries are plain-English problem statements and documents are unrelated competitive-programming solutions, so lexical and symbol signals add noise and dense retrieval alone ranks best. Those components are built for repository questions such as "who calls X?" ([section 10](#10-ablations)).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/embeddings-dark.svg">
+  <img src="docs/charts/embeddings-light.svg" alt="Embedding model comparison: NDCG@10 against median query latency" width="760">
+</picture>
+
+**Embedding models.** Accuracy against query latency on a seeded subset. The 0.5B model is as accurate as the 1.5B one at about a third of the latency, which is why it is the default.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/charts/versioning-dark.svg">
+  <img src="docs/charts/versioning-light.svg" alt="Incremental index update time against full rebuild time for consecutive commits of the click repository" width="760">
+</picture>
+
+**Retrieval across versions (P1).** Re-indexing a new commit only touches the changed files, so updates take a fraction of a full rebuild ([section 11](#11-version-aware-retrieval-p1)).
+
 ---
 
 ## Contents
 
+0. [Results at a glance](#results-at-a-glance)
 1. [Problem](#1-problem)
 2. [Why normal RAG is insufficient](#2-why-normal-rag-is-insufficient)
 3. [Architecture](#3-architecture)

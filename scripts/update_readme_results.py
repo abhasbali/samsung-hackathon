@@ -90,6 +90,9 @@ def main() -> int:
         text = pat.sub(lambda m, b=body: f"{m.group(1)}\n{b}\n{m.group(3)}", text)
     readme.write_text(text, encoding="utf-8")
     print("README results updated:", {k: ("n/a" if v.startswith(NOT_RUN) else "filled") for k, v in blocks.items()})
+    import runpy
+
+    runpy.run_path(str(ROOT / "scripts" / "make_charts.py"), run_name="__main__")  # charts from the same files
     return 0
 
 
