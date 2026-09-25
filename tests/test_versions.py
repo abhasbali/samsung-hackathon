@@ -14,6 +14,15 @@ def _find(eng, qualified, commit=None):
     return out
 
 
+def test_subdirectory_of_a_repo_is_not_treated_as_the_repo(history_repo):
+    """Indexing a folder inside some enclosing git repo must index that folder, not the whole repo."""
+    repo, _ = history_repo
+    sub = repo / "nested"
+    sub.mkdir()
+    assert GitTracker.is_repo(repo)
+    assert not GitTracker.is_repo(sub)
+
+
 def test_git_diff_detects_rename(history_repo):
     repo, shas = history_repo
     g = GitTracker(repo)

@@ -58,9 +58,13 @@ class GitTracker:
 
     @staticmethod
     def is_repo(path: str | Path) -> bool:
+        """True only for a repository's top-level directory. A subdirectory of some enclosing repo
+        (e.g. examples/sample_repo inside this project) is indexed as a plain directory, so the
+        index covers what the caller pointed at rather than the whole enclosing repository."""
         try:
-            subprocess.run(["git", "-C", str(path), "rev-parse", "--git-dir"], capture_output=True, check=True)
-            return True
+            out = subprocess.run(["git", "-C", str(path), "rev-parse", "--show-toplevel"], capture_output=True, check=True)
+            top = out.stdout.decode("utf-8", errors="replace").strip()
+            return bool(top) and Path(top).resolve() == Path(path).resolve()
         except Exception:  # noqa: BLE001
             return False
 
