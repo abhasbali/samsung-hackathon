@@ -1,8 +1,18 @@
 # CodeFusion
 
-**A code-intelligence retrieval engine.** Given a natural-language question about a codebase, CodeFusion returns a ranked list of real code snippets. It does not generate answers.
+## CodeFusion
 
-It parses code into functions, methods, classes and module blocks with tree-sitter. Each snippet is indexed several ways: code embeddings, identifier-aware BM25, a symbol index and a call graph. The rankings are fused per query intent, and every result explains why it was retrieved. Indexes follow git history incrementally, and functions are tracked across commits and renames.
+**A code-intelligence retrieval engine.**
+
+Given a natural-language question about a codebase, CodeFusion returns a ranked list of real code snippets. It does not generate answers.
+
+It parses code into functions, methods, classes, and module blocks with tree-sitter. Each snippet is indexed several ways: code embeddings, identifier-aware BM25, a symbol index, and a call graph.
+
+The rankings are fused per query intent, and every result explains why it was retrieved. Indexes follow Git history incrementally, and functions are tracked across commits and renames.
+
+### 🎥 Demo
+
+[▶ Watch the CodeFusion Demo](https://youtu.be/5LdTcgO6PW4)
 
 ```
 $ python scripts/search.py -q "Who calls validate_user?"
